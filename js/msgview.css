@@ -1,0 +1,155 @@
+.aw-support .messageview a {
+	text-decoration: none;
+}
+
+.aw-support .messageview .messagebody {
+	background-color: #F9F5DF;
+	padding: 0.5em 1em;
+}
+.aw-support .messageview .imgcanvas {
+	margin: 10px 0;
+	position: relative;
+}
+.aw-support .messageview .imgsave {
+	margin-top: 1em;
+	height: 1em;
+	text-align: center;
+}
+
+.aw-support .messageview .bimgsave {
+	color: #D6583F;
+	font-weight: bold;
+}
+
+.aw-support .messageview .bimgsaveload {
+	position: absolute;
+	right: 15px;
+	top: 12px;
+}
+
+.aw-support .messageview .manbuttons {
+	height: 22px;
+}
+
+.aw-support .messageview .manbuttons,
+.aw-support .messageview .ptbuttons {
+	margin: 1em 0;
+}
+.aw-support .messageview .btkbt {
+	border-bottom: 1px dotted;
+	margin-right: 1em;
+}
+.aw-support .messageview .beditor {
+	color: #006699;
+}
+.aw-support .messageview .bsetexec {
+	color: #73A110;
+	font-size: 1.5em;
+}
+.aw-support .messageview .bremove {
+	color: #D6583F;
+}
+
+.aw-support .messageview .ptlistsh {
+	color: #006699;
+	font-size: 1.2em;
+}
+.aw-support .messageview .ptappend {
+	color: #006699;
+}
+.aw-support .messageview .ptlist {
+	clear: both;
+	margin-top: 0.5em;
+	margin-bottom: 1.3em;
+	display: block;
+}
+.aw-support .messageview .author {
+	width: 220px;
+}
+
+.aw-support .colinfo .cirow  {
+	margin: 5px 0;
+	clear: both;
+	padding-bottom: 3px;
+	border-bottom: #73A110 1px dotted;
+}
+.aw-support .colinfo .nobline {
+	margin-bottom: 0 !important;
+	padding-bottom: 0 !important;
+	border-bottom: none !important;
+}
+
+.aw-support .colinfo .tl {
+	font-weight: bold; 
+	clear: both;
+}
+.aw-support .colinfo .tl {
+	float: left;
+}
+.aw-support .colinfo .vl {
+	width: 100%;
+}
+.aw-support .colinfo .vi {
+	width: 100%;
+	text-align: right;
+}
+.aw-support .colinfo .status {
+	text-align: center;
+	font-size: 1.4em;
+}
+
+.aw-support .colinfo .priority .vi {
+	font-weight: bold;
+}
+.aw-support .colinfo ._dl .dt,
+.aw-support .colinfo .ddl .dt {
+	font-size: 1.37em;
+}
+.aw-support .colinfo ._dl .tm, 
+.aw-support .colinfo .ddl .tm {
+	font-size: 1.2em;
+}
+.aw-support .colinfo .user {
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.aw-support .messageview .dialog {
+	padding: 7px;
+	width: 500px;
+	margin: 10px auto;
+	line-height: 1.4em;
+}
+.aw-support .messageview .dialog h4 {
+	font-size: 1.1em;
+	font-weight: bold;
+	margin-bottom: 3px;
+}
+
+.aw-support .messageview .dialog div.dbtns{
+	text-align: right;
+}
+.aw-support .messageview .dialog a.yes,
+.aw-support .messageview .dialog a.no {
+	color: #000;
+	text-decoration: underline;
+}
+.aw-support .messageview .dialog a.no {
+	margin-left: 10px;
+}
+.aw-support .messageview .alarm  {
+	background-color: #FFF2F2;
+}
+
+.aw-support .messageview ul.dfiles {
+	margin-top: 10px;
+}
+.aw-support .messageview ul.dfiles li.tl {
+	margin-right: 10px;
+}
+.aw-support .messageview ul.dfiles li {
+	float: left;
+}
+.aw-support .messageview ul.dfiles div.file {
+	margin-bottom: 5px;
+}

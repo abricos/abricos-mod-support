@@ -1,0 +1,97 @@
+.clear { clear: both;}
+
+.aw-support table.maintable {
+	width: 100%;
+}
+.aw-support table.maintable td.leftcol {
+	width: 90%;
+}
+.aw-support table.maintable td.leftcol .colbody {
+	padding-right: 0.7em;
+}
+.aw-support table.maintable td.rightcol {
+	background-color: #F2F2F1;
+}
+.aw-support table.maintable td.rightcol .colbody {
+	padding: 0 0.6em;
+	width: 220px;
+}
+
+.aw-support .baddmsg {
+    color: #73A110;
+    border-bottom: 1px dotted;
+    margin-right: 1em;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+.aw-support .sepline {
+	height: 5px;
+	background-color: #CEDC8D;
+}
+
+.aw-support .navigate {
+	font-size: 1.5em;
+	margin-bottom: 0.6em;
+}
+.aw-support .navigate .first .arrow {
+	display: none;
+}
+.aw-support .navigate .current a {
+	color: #666666;
+}
+
+
+.aw-support .gbmenu a {
+	text-decoration: none;
+	font-size: 1.2em;
+	color: #000;
+}
+.aw-support .gbmenu .gbitems {
+	margin-left: 10px;
+}
+.aw-support .gbmenu .gbitem {
+	background-color: #F4F4EE;
+	text-align: center;
+	width: 100px;
+	cursor: pointer;
+	float: left;
+	margin: 0 1px;
+	padding: 5px 15px; 
+}
+.aw-support .gbmenu .gbitem:hover {
+	text-decoration: underline;	
+}
+.aw-support .gbmenu .current {
+	background-color: #E3E3D7;
+}
+.aw-support .gbmenu .current:hover {
+	text-decoration: none;	
+}
+.aw-support .gbmenu .line {
+    background: url("/modules/support/images/gmshadow.png") repeat-x scroll 0 0 transparent;
+	height: 16px;
+}
+
+.aw-support .ui-form dl {
+    margin: 0 0 0.5em 0;
+    padding: 0;
+}
+.aw-support .ui-form dt {
+    clear: left;
+    float: left;
+    padding: 0.5em 0 0.5em 0.5em;
+    width: 10em;
+}
+.aw-support .ui-form dd {
+    float: none;
+    margin-left: 10em;
+    padding: 0.5em 2em;
+}
+.aw-support .ui-form .font-large {
+	font-size: 140%;
+}
+.aw-support .ui-form .input-text {
+	border: 1px solid #CCCCCC;	
+}
+

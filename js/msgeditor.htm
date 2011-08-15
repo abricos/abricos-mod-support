@@ -1,0 +1,87 @@
+<!--{panel}-->
+<div class='hd'>Редактор задачи</div>
+<div class='bd aw-support'>
+
+	<div id="{i#gmenu}"></div>
+
+	<div class="messageedit ui-form">
+		
+		<div class="navigate">
+			<span class="item {v#first}">
+				<a href="#app=support/board/showBoardPanel">Список сообщений</a>
+			</span>
+			<span class="item {v#current}">
+				<span class="arrow"> → </span>
+				<span id="{i#tlnew}">Создание нового сообщения</span>
+				<span id="{i#tledit}">Редактировать сообщение</span>
+			</span>
+		</div>
+
+	
+		
+		<dl class="sel">
+			<dt>
+				<label for="{i#tl}">Заголовок</label>
+			</dt>
+			<dd>
+				<input id="{i#tl}" type="text" class="input-text font-large" style="width: 90%;" />
+			</dd>
+		</dl>
+		
+		<dl>
+			<dt>
+				<label>Текст сообщения</label>
+			</dt>
+			<dd>
+				<textarea id="{i#editor}" style="width: 780px; height: 300px"></textarea>
+			</dd>
+		</dl>
+
+		<dl id="{i#rfiles}">
+			<dt>
+				<label>Файлы</label>
+			</dt>
+			<dd>
+				<div id="{i#files}"></div>
+			</dd>
+		</dl>
+		
+		<dl>
+			<dt></dt>
+			<dd>
+				<div class="field">
+					<div class="buttons">
+						<input type="button" value="Сохранить" id="{i#bsave}" class="btn" />
+						<input type="button" value="Отмена" id="{i#bcancel}" class="btn" />
+						<img src="/images/loading.gif" id="{i#loading}" style="display: none;" />
+					</div>
+				</div>
+			</dd>
+		</dl>
+		
+	</div>
+	
+	<div class="clear: both;"></div>
+</div>
+
+<!--{files}-->
+<div id="{i#id}" class="dfiles">
+	<div id="{i#table}"></div>
+	<a href="#" id="{i#bshowbtns}" class="abtn" title="Прикрепить файлы к проекту">Прикрепить файл</a>
+	<a href="#" id="{i#bshowbtnsex}" class="abtn" style="display: none;" title="Прикрепить файлы к проекту">Прикрепить еще файл</a>
+	<div id="{i#fm}" style="display: none;">
+		<input id="{i#bupload}" class="btn" type="button" value="Загрузить с компьютера" title="Загрузить файл со своего компьютера" />
+		<input id="{i#bshowfm}" class="btn" type="button" value="Выбрать в менеджере файлов" title="Выбрать файл через менеджер" />
+		<a href="#" id="{i#bcancel}" class="abtn" title="Отмена">Отмена</a>
+	</div>
+</div>
+
+<!--{ftable}-->
+{v#rows}
+<div class="clear"></div>
+
+<!--{frow}-->
+<ul class="file">
+	<li><a href="{v#src}" target="_blank" class="src">{v#nm}</a></li>
+	<li><div id="{i#remove}-{v#fid}" class="fileremove"></div></li>
+</ul>

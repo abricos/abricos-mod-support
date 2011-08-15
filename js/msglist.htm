@@ -1,0 +1,54 @@
+<!--{widget}-->
+<div class="mlist" id="{i#id}">
+	<div id="{i#table}"></div>
+</div>
+
+<!--{table}-->
+<table id="{i#id}">
+	<thead><tr>
+		<th class="tname">
+			<ul>
+				<li class="tl"><a id="{i#sortname}" href="#">Название</a></li>
+				<li><div class="sort sortstr-asc"></div></li>
+				<li><div class="sort sortstr-desc"></div></li>
+			</ul>
+		</th>
+		<th class="tcmtcount">
+			<ul>
+				<li class="tl"><a id="{i#sortname}" href="#" title="Количество комментарий">Комментарий</a></li>
+				<li><div class="sort sortstr-asc"></div></li>
+				<li><div class="sort sortstr-desc"></div></li>
+			</ul>
+		</th>
+		<th class="tlastcmt">
+			<ul>
+				<li class="tl"><a id="{i#sortname}" href="#">Последний комментарий</a></li>
+				<li><div class="sort sortstr-asc"></div></li>
+				<li><div class="sort sortstr-desc"></div></li>
+			</ul>
+		</th>
+	</tr></thead>
+	<tbody>{v#rows}</tbody>
+</table>
+
+<!--{row}-->
+<tr id="{i#id}-{v#id}" class="row {v#removed}">
+	<td class="tname">
+		<div class="ch-tl">
+			<a href="#app=support/msgview/showMessageViewPanel/{v#id}/" title="{v#tl}">{v#tl}</a>
+			<div class="shadow"></div>
+		</div>
+	</td>
+	<td class="tcmtcount">
+		{v#cmt}
+	</td>
+	<td class="tlastcmt">
+		<div class="cmtuser">{v#cmtuser}</div>
+		<div class="cmtdate">{v#cmtdate}</div>
+	</td>
+</tr>
+
+<!--{user}-->
+<div class="user vi">
+	<a href="#" class="show-user-profile user-{v#uid}">{v#unm}</a>
+</div>

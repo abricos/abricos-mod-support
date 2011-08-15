@@ -1,0 +1,300 @@
+.aw-support .mlist table {
+	table-layout: fixed;
+	border-collapse: collapse;
+	width: 100%;
+}
+.aw-support .mlist table th {
+	background-color: #F4F4EE;
+	font-weight: normal;
+	padding: 0;
+	white-space: nowrap;
+	text-align: left;
+}
+
+.aw-support .mlist th a {
+	color: #000;
+	text-decoration: none;
+}
+.aw-support .mlist th a:hover {
+	text-decoration: underline;
+}
+
+.aw-support .mlist th ul {
+	height: 2.1em;
+}
+.aw-support .mlist th li {
+	margin-top: 0.4em;
+	float: left;
+}
+.aw-support .mlist th .sort-asc,
+.aw-support .mlist th .sort-desc,
+.aw-support .mlist th .sortstr-asc,
+.aw-support .mlist th .sortstr-desc,
+.aw-support .mlist th .sortdate-asc,
+.aw-support .mlist th .sortdate-desc {
+	display: none;
+	margin-top: 2px;
+	margin-left: 2px;
+	height: 13px;
+	background: url("/modules/support/images/icons.png") no-repeat 0 0 transparent;
+}
+.aw-support .mlist th .sort-asc ,
+.aw-support .mlist th .sort-desc {
+	width: 3px;
+	background-position: 0 -11px;
+}
+.aw-support .mlist th .sort-desc {
+	background-position: -4px -11px;
+}
+.aw-support .mlist th .sortstr-asc {
+	width: 9px;
+	background-position: -7px -11px;
+}
+.aw-support .mlist th .sortstr-desc {
+	width: 9px;
+	background-position: -16px -11px;
+}
+.aw-support .mlist th .sortdate-asc {
+	width: 22px;
+	background-position: -25px -11px;
+}
+.aw-support .mlist th .sortdate-desc {
+	width: 22px;
+	background-position: -47px -11px;
+}
+.aw-support .mlist th ul.sa .sort-asc,
+.aw-support .mlist th ul.sa .sortstr-asc, 
+.aw-support .mlist th ul.sa .sortdate-asc {
+	display: inherit;
+}
+.aw-support .mlist th ul.sb .sort-desc,
+.aw-support .mlist th ul.sb .sortstr-desc, 
+.aw-support .mlist th ul.sb .sortdate-desc {
+	display: inherit;
+}
+
+
+.aw-support .mlist tr.row td {
+	padding: 0.5em 0.3em 0.6em 0.3em;
+}
+
+.aw-support .mlist table th.tname {
+	width: 60%;
+}
+.aw-support .mlist table th.tname .tl {
+    margin-left: 30px;
+}
+.aw-support .mlist .tname .ch-ico {
+	float: left;
+	height: 15px;
+}
+.aw-support .mlist .tname .ch-tl {
+	margin-left: 20px;
+	white-space: nowrap;
+	overflow: hidden;
+	position: relative;
+}
+.aw-support .mlist .tname .ch-tl .shadow {
+    background: url("/modules/support/images/shadow.png") repeat-y scroll 0 0 transparent;
+    height: 1.3em;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 16px;
+}
+
+.aw-support .mlist tr.row:hover .tname .ch-tl .shadow,
+.aw-support .mlist tr.row-hover .tname .ch-tl .shadow {
+    background: url("/modules/support/images/shadow-row.png") repeat-y scroll 0 0 transparent;
+}
+
+.aw-support .mlist tr.row td.tlastcmt {
+	padding: 0.1em 0.3em 0.1em 0.3em;
+	font-size: .8em;
+}
+.aw-support .mlist tr.row td.tlastcmt .cmtdate {
+	color: #839097;
+}
+
+
+/*
+.aw-support .mlist div.ch-btn {
+	background: url("/modules/support/images/icons.png") no-repeat scroll -80px 0 transparent;
+    cursor: pointer;
+	margin-top: 0.25em;
+    margin-left: 4px;
+    width: 11px;
+    height: 11px;
+}
+.aw-support .mlist .expanded div.ch-btn {
+	background-position: -80px -11px;
+}
+.aw-support .mlist .nochild div.ch-btn {
+    background-image: none;
+}
+.aw-support .mlist .tname .new,
+.aw-support .mlist .tname .chnew {
+	display: none;
+	font-family: sans-serif;
+	vertical-align: top;
+	font-size: 60%;
+	color: red;
+}
+.aw-support .mlist .tname .chnew {
+	font-size: 50%;
+	vertical-align: bottom;
+}
+.aw-support .mlist .tchnew .tname .chnew,
+.aw-support .mlist .tnew .tname .new {
+	display: inline;
+}
+/**/
+.aw-support .mlist .level0 .tname .ch-ico{}
+.aw-support .mlist .level0 .tname .ch-tl	{font-size:		1.3em;}
+
+.aw-support .mlist .level1 .tname .ch-ico{margin-left:	15px;}
+.aw-support .mlist .level1 .tname .ch-tl {font-size:		1.2em;}
+
+.aw-support .mlist .level2 .tname .ch-ico{margin-left:	30px;}
+.aw-support .mlist .level2 .tname .ch-tl {font-size:		1.1em;}
+
+.aw-support .mlist .level3 .tname .ch-ico{margin-left:	45px;}
+.aw-support .mlist .level3 .tname .ch-tl {font-size:		1em;}
+
+.aw-support .mlist .level4 .tname .ch-ico{margin-left:	60px;}
+.aw-support .mlist .level4 .tname .ch-tl {font-size:		0.9em;}
+
+.aw-support .mlist .level5 .tname .ch-ico{margin-left:	75px;}
+.aw-support .mlist .level5 .tname .ch-tl {font-size:		0.8em;}
+
+.aw-support .mlist .level6 .tname .ch-ico{margin-left:	90px;}
+.aw-support .mlist .level6 .tname .ch-tl {font-size:		0.75em;}
+
+.aw-support .mlist .level7 .tname .ch-ico{margin-left:	105px;}
+.aw-support .mlist .level7 .tname .ch-tl {font-size:		0.7em;}
+
+.aw-support .mlist .level8 .tname .ch-ico{margin-left:	120px;}
+.aw-support .mlist .level8 .tname .ch-tl {font-size:		0.65em;}
+
+.aw-support .mlist .level9 .tname .ch-ico{margin-left:	135px;}
+.aw-support .mlist .level9 .tname .ch-tl {font-size:		0.6em;}
+
+.aw-support .mlist .level10 .tname .ch-ico{margin-left:	150px;}
+.aw-support .mlist .level10 .tname .ch-tl {font-size:	0.55em;}
+
+.aw-support .mlist .level11 .tname .ch-ico{margin-left:	150px;}
+.aw-support .mlist .level11 .tname .ch-tl {font-size:	0.55em;}
+
+.aw-support .mlist .level12 .tname .ch-ico{margin-left:	150px;}
+.aw-support .mlist .level12 .tname .ch-tl {font-size:	0.55em;}
+
+.aw-support .mlist .level13 .tname .ch-ico{margin-left:	150px;}
+.aw-support .mlist .level13 .tname .ch-tl {font-size:	0.55em;}
+
+.aw-support .mlist .level14 .tname .ch-ico{margin-left:	150px;}
+.aw-support .mlist .level14 .tname .ch-tl {font-size:	0.55em;}
+
+.aw-support .mlist .level15 .tname .ch-ico{margin-left:	150px;}
+.aw-support .mlist .level15 .tname .ch-tl {font-size:	0.55em;}
+
+.aw-support .mlist .level16 .tname .ch-ico{margin-left:	150px;}
+.aw-support .mlist .level16 .tname .ch-tl {font-size:	0.55em;}
+
+.aw-support .mlist table th.tddl {
+	width: 9em;
+}
+
+.aw-support .mlist table td.tddl {
+	vertical-align: middle;
+	font-size: 0.9em;
+}
+
+.aw-support .mlist table th.tautor, 
+.aw-support .mlist table th.texec {
+	width: 25%;
+}
+.aw-support .mlist table th.tfav {
+	width: 26px;
+}
+.aw-support .mlist table th.tfav ul {
+	margin-left: 4px;
+}
+
+.aw-support .mlist table th.tvot {
+	width: 60px;
+}
+.aw-support .mlist table th.tvot ul {
+	margin-left: 15px;
+}
+
+.aw-support .mlist table th.tprt {
+	width: 8em;
+	text-align: center;	
+}
+.aw-support .mlist table th.tprt ul {
+	margin-left: 10px;
+}
+.aw-support .mlist table td.tprt .prtclr {
+	text-align: center;
+}
+
+.aw-support .mlist table th.twork {
+	width: 7em;
+}
+.aw-support .mlist table td.twork {
+	vertical-align: middle;
+}
+
+.aw-support .mlist table td a {
+	text-decoration: none;
+}
+
+.aw-support .mlist table .expired td, 
+.aw-support .mlist table .expired td a,
+.aw-support .mlist table .expired td.tprt .tl {
+	color: #C82100; 
+}
+
+.aw-support .mlist table .closed td,
+.aw-support .mlist table .closed td .prtclr,  
+.aw-support .mlist table .closed td a,
+.aw-support .mlist table .closed td.tprt .tl {
+	color: #839097; 
+}
+
+.aw-support .mlist table .removed td,
+.aw-support .mlist table .removed td .prtclr,  
+.aw-support .mlist table .removed td a,
+.aw-support .mlist table .removed td.tprt .tl {
+	color: #839097; 
+	text-decoration: line-through;
+}
+
+
+.aw-support .mlist tr.row:hover, 
+.aw-support .mlist tr.row-hover {
+	background: none repeat scroll 0 0 #FFF0C6;
+}
+
+.aw-support .mlist .tlmenu {
+	margin-left: 10px;
+}
+.aw-support .mlist .tlitem {
+	cursor: pointer;
+	float: left;
+	background-color: #E3E3D7;
+	margin: 0 1px;
+	padding: 5px 15px; 
+}
+.aw-support .mlist .tlitem:hover {
+	text-decoration: underline;
+	
+}
+.aw-support .mlist .current {
+	background-color: #F4F4EE;
+}
+.aw-support .mlist .ttable {
+	clear: both;
+}
+
+
