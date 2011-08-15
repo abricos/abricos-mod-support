@@ -135,19 +135,16 @@ Component.entryPoint = function(){
 			gel('dl').innerHTML = Brick.dateExt.convert(message.date, 3, true);
 			gel('dlt').innerHTML = Brick.dateExt.convert(message.date, 4);
 
-			// закрыть все кнопки, открыть те, что соответсуют статусу задачи
-			TM.elHide('panel.bopen,beditor,bremove,brestore,barhive');
-
-			// статус
-			switch(message.status){
-			case MST.OPENED:
-			case TST.REOPEN:	TM.elShow('panel.beditor,bremove'); break;
-			case TST.CLOSED:	TM.elShow('panel.bopen,barhive'); break;
-			case TST.REMOVED:	TM.elShow('panel.brestore'); break;
-			}
-
-			if (!R['isWrite']){
-				TM.elHide('panel.manbuttons,ptappend');
+			// закрыть все кнопки, открыть по ролям 
+			TM.elHide('panel.bopen,bclose,beditor,bremove');
+			
+			var isMyMessage = user.id*1 == Brick.env.user.id*1;
+			if (message.status == MST.OPENED){
+				if (R['isModer']){
+					TM.elShow('panel.beditor,bremove,bclose'); 
+				}else if (isMyMessage){
+					TM.elShow('panel.beditor,bremove'); 
+				}
 			}
 			
 			var fs = message.files;
@@ -177,8 +174,8 @@ Component.entryPoint = function(){
 		onClick: function(el){
 			var tp = this._TId['panel'];
 			switch(el.id){
-			case tp['bsetexec']: this.setExecMessage(); return true;
-			case tp['bunsetexec']: this.unsetExecMessage(); return true;
+			
+			case tp['beditor']: this.messageEditorShow(); return true;
 			
 			case tp['bclose']: 
 			case tp['bclosens']: 
@@ -186,6 +183,12 @@ Component.entryPoint = function(){
 			
 			case tp['bcloseno']: this.messageCloseCancel(); return true;
 			case tp['bcloseyes']: this.messageCloseMethod(); return true;
+			
+			/*
+			
+			case tp['bsetexec']: this.setExecMessage(); return true;
+			case tp['bunsetexec']: this.unsetExecMessage(); return true;
+			
 
 			case tp['bremove']: 
 				this.messageRemove(); return true;
@@ -200,18 +203,7 @@ Component.entryPoint = function(){
 				this.messageArhive(); return true;
 
 			case tp['bopen']:  this.messageOpen(); return true;
-			case tp['beditor']: this.messageEditorShow(); return true;
-			
-			case tp['ptlisthide']: 
-			case tp['ptlistshow']: 
-				this.showHideChildMessageTable(); return true;
-
-			case tp['cmthide']: 
-			case tp['cmtshow']: 
-				this.showHideComments(); return true;
-
-			case tp['bimgsave']: this.messageSaveImage(); return true;
-
+			/**/
 			}
 			return false;
 		},
@@ -221,20 +213,32 @@ Component.entryPoint = function(){
 			TM.elShowHide('panel.bloading', show);
 		},
 		
-		messageSaveImage: function(){
+		
+		// закрыть сообщение
+		messageClose: function(){ 
 			var TM = this._TM;
-			TM.elShowHide('panel.bimgsave', false);
-			TM.elShowHide('panel.bimgsaveload', true);
-			
-			var newdata = {
-				'onlyimage': true,
-				'images': this.messageListWidget.toSave()
-			};
-			var __self = this;
-			NS.supportManager.messageSave(this.message, newdata, function(){
-				TM.elShowHide('panel.bimgsaveload', false);
-			});
+			TM.elHide('panel.manbuttons');
+			TM.elShow('panel.dialogclose');
 		},
+		messageCloseCancel: function(){
+			var TM = this._TM;
+			TM.elShow('panel.manbuttons');
+			TM.elHide('panel.dialogclose');
+		},
+		messageCloseMethod: function(){
+			this.messageCloseCancel();
+			var __self = this;
+			this._shLoading(true);
+			NS.supportManager.messageClose(this.message.id, function(){
+				__self._shLoading(false);
+			});
+		}
+		
+		
+		/*
+		,
+
+		
 		
 		messageRemoveCancel: function(){
 			var TM = this._TM;
@@ -269,28 +273,6 @@ Component.entryPoint = function(){
 			});
 		},
 		
-		messageCloseCancel: function(){
-			var TM = this._TM;
-			TM.elShow('panel.manbuttons');
-			TM.elHide('panel.dialogclose');
-		},
-		messageClose: function(){ // закрыть проект
-			if (!NS.supportManager.checkMessageOpenChilds(this.message.id)){
-				this.messageCloseMethod();
-				return;
-			}
-			var TM = this._TM;
-			TM.elHide('panel.manbuttons');
-			TM.elShow('panel.dialogclose');
-		},
-		messageCloseMethod: function(){
-			this.messageCloseCancel();
-			var __self = this;
-			this._shLoading(true);
-			NS.supportManager.messageClose(this.message.id, function(){
-				__self._shLoading(false);
-			});
-		},
 		messageOpen: function(){ // открыть проект повторно
 			var __self = this;
 			this._shLoading(true);
@@ -298,24 +280,14 @@ Component.entryPoint = function(){
 				__self._shLoading(false);
 			});
 		},
-		showHideChildMessageTable: function(){
-			var cfg = NS.supportManager.userConfig;
-			cfg['messageviewchild'] = !cfg['messageviewchild'];
-			NS.supportManager.userConfigSave();
-			this.renderMessage();
-		},
-		showHideComments: function(){
-			var cfg = NS.supportManager.userConfig;
-			cfg['messageviewcmts'] = !cfg['messageviewcmts'];
-			NS.supportManager.userConfigSave();
-			this.renderMessage();
-		},
 		messageEditorShow: function(){
 			var messageid = this.message.id;
 			Brick.ff('support', 'messageeditor', function(){
 				API.showMessageEditorPanel(messageid);
 			});
 		}
+		
+		/**/
 	});
 	NS.MessageViewPanel = MessageViewPanel;
 	

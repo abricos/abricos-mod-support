@@ -62,11 +62,11 @@ class SupportManager extends ModuleManager {
 			case 'messagesave': return $this->MessageSave($d->message);
 			case 'message': return $this->Message($d->messageid);
 			case 'sync': return $this->Sync();
+			case 'messageclose': return $this->MessageClose($d->messageid);
 			
 			/*
 			case 'messagesetexec': return $this->MessageSetExec($d->messageid);
 			case 'messageunsetexec': return $this->MessageUnsetExec($d->messageid);
-			case 'messageclose': return $this->MessageClose($d->messageid);
 			case 'messageremove': return $this->MessageRemove($d->messageid);
 			case 'messagerestore': return $this->MessageRestore($d->messageid);
 			case 'messagearhive': return $this->MessageArhive($d->messageid);
@@ -244,6 +244,10 @@ class SupportManager extends ModuleManager {
 		return $message;
 	}
 	
+	/**
+	 * Если текущий пользователь модератор и выше или этот пользователь автор сообщения, то вернет истину
+	 * @param array $msg
+	 */
 	public function MessageAccess($msg){
 		if (!$this->IsViewRole() || empty($msg)){ return false; }
 		if ($this->IsModerRole()){ return true; }
@@ -397,6 +401,22 @@ class SupportManager extends ModuleManager {
 		}
 	}		
 	
+	/**
+	 * Закрыть сообщение. Роль модератора
+	 * 
+	 * @param integer $messageid
+	 */
+	public function MessageClose($messageid){
+		if (!$this->IsModerRole()){ return null; }
+		
+		$msg = $this->Message($messageid);
+		if ($msg['st'] != SupportStatus::OPENED){ return null; } // закрыть можно только открытое сообщение
+		
+		SupportQuery::MessageSetStatus($this->db, $messageid, SupportStatus::CLOSED, $this->userid);
+		
+		return $this->Message($messageid);
+	}
+	
 
 	
 	
@@ -460,32 +480,6 @@ class SupportManager extends ModuleManager {
 		return $this->ToArray($rows);
 	}
 	
-	/**
-	 * Завершить задачу
-	 * 
-	 * @param integer $messageid
-	 */
-	public function MessageClose($messageid){
-		if (!$this->MessageAccess($messageid)){ return null; }
-		
-		// сначало закрыть все подзадачи
-		$rows = SupportQuery::Board($this->db, $this->userid, 0, $messageid);
-		while (($row = $this->db->fetch_array($rows))){
-			$this->MessageClose($row['id']);
-		}
-		
-		$message = SupportQuery::Message($this->db, $messageid, $this->userid, true);
-		
-		if ($message['st'] == SupportStatus::DRAW_CLOSE){ return null; }
-		
-		$history = new SupportHistory($this->userid);
-		$history->SetStatus($message, SupportStatus::DRAW_CLOSE, $this->userid);
-		$history->Save();
-		
-		SupportQuery::MessageSetStatus($this->db, $messageid, SupportStatus::DRAW_CLOSE, $this->userid);
-		
-		return $this->Message($messageid);
-	}
 	
 	/**
 	 * Удалить задачу

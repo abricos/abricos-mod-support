@@ -145,8 +145,8 @@ Component.entryPoint = function(){
 		onMouseMove: function(evt){
 			var ctime = (new Date()).getTime(), ltime = this.lastUpdateTime.getTime();
 			
-			// if ((ctime-ltime)/(1000*60) < 5){ return; }
-			if ((ctime-ltime)/(1000) < 5){ return; }
+			if ((ctime-ltime)/(1000*60) < 3){ return; }
+			// if ((ctime-ltime)/(1000) < 5){ return; }
 			
 			this.lastUpdateTime = new Date();
 			
@@ -155,7 +155,6 @@ Component.entryPoint = function(){
 			this.ajax({'do': 'sync'}, function(r){});
 		},
 
-		
 		listUpdate: function(data){
 			// обновить данные по сообщениям: новые - создать, существующие - обновить
 			var objs = {},
@@ -187,21 +186,6 @@ Component.entryPoint = function(){
 			};
 		},
 		
-
-		/*
-		messageRemove: function(messageid, callback){ // удалить проект
-			this._messageAJAX(messageid, 'messageremove', callback);
-		},
-		messageRestore: function(messageid, callback){ // восстановить удаленный проект
-			this._messageAJAX(messageid, 'messagerestore', callback);
-		},
-		messageArhive: function(messageid, callback){ // Переместить проект в архив
-			this._messageAJAX(messageid, 'messagearhive', callback);
-		},
-		messageOpen: function(messageid, callback){ // открыть проект повторно
-			this._messageAJAX(messageid, 'messageopen', callback);
-		},
-		/**/
 		_ajaxBeforeResult: function(r){
 			if (L.isNull(r)){ return null; }
 			if (r.u*1 != Brick.env.user.id){ // пользователь разлогинился
@@ -216,6 +200,7 @@ Component.entryPoint = function(){
 			this.users.update(chgs['users']);
 			return this.listUpdate(chgs['board']);
 		},
+		
 		_ajaxResult: function(upd){
 			if (L.isNull(upd)){ return null; }
 			if (upd['n'].length == 0 && upd['u'].length == 0 && upd['d'].length == 0){ return null; }
@@ -293,7 +278,11 @@ Component.entryPoint = function(){
 				__self._setLoadedMessageData(r);
 				callback(r);
 			});
+		},
+		messageClose: function(messageid, callback){ // закрыть сообщение
+			this._messageAJAX(messageid, 'messageclose', callback);
 		}
+		
 	};
 	NS.supportManager = null;
 	

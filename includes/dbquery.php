@@ -214,6 +214,52 @@ class SupportQuery {
 		";
 		return $db->query_read($sql);
 	}
+
+	public static function MessageFiles(CMSDatabase $db, $messageid){
+		$sql = "
+			SELECT 
+				bf.filehash as id,
+				f.filename as nm,
+				f.filesize as sz
+			FROM ".$db->prefix."spt_file bf
+			INNER JOIN ".$db->prefix."fm_file f ON bf.filehash=f.filehash
+			WHERE bf.messageid=".bkint($messageid)."
+		";
+		return $db->query_read($sql);
+	}
+	
+	public static function MessageFileAppend(CMSDatabase $db, $messageid, $filehash, $userid){
+		$sql = "
+			INSERT INTO ".$db->prefix."spt_file (messageid, filehash, userid) VALUES
+			(
+				".bkint($messageid).",
+				'".bkstr($filehash)."',
+				".bkint($userid)."
+			)
+		";
+		$db->query_write($sql);
+	}
+	
+	public static function MessageFileRemove(CMSDatabase $db, $messageid, $filehash){
+		$sql = "
+			DELETE FROM ".$db->prefix."spt_file
+			WHERE messageid=".bkint($messageid)." AND filehash='".bkstr($filehash)."' 
+		";
+		$db->query_write($sql);
+	}
+	
+	public static function MessageSetStatus(CMSDatabase $db, $messageid, $status, $userid){
+		$sql = "
+			UPDATE ".$db->prefix."spt_message
+			SET
+				status=".bkint($status).",
+				statuserid=".bkint($userid).",
+				statdate=".TIMENOW."
+			WHERE messageid=".bkint($messageid)."
+		";
+		$db->query_write($sql);
+	}
+	
 	
 	
 	
@@ -267,56 +313,11 @@ class SupportQuery {
 	}
 	
 
-	public static function MessageSetStatus(CMSDatabase $db, $messageid, $status, $statuserid){
-		$sql = "
-			UPDATE ".$db->prefix."spt_message
-			SET
-				status=".bkint($status).",
-				statuserid=".bkint($statuserid).",
-				statdate=".TIMENOW."
-			WHERE messageid=".bkint($messageid)."
-		";
-		$db->query_write($sql);
-	}
-	
 	public static function MessageUnsetStatus(CMSDatabase $db, $messageid){
 		$sql = "
 			UPDATE ".$db->prefix."spt_message
 			SET status=".SupportStatus::DRAW_OPEN.", statuserid=0, statdate=0
 			WHERE messageid=".bkint($messageid)."
-		";
-		$db->query_write($sql);
-	}
-	
-	public static function MessageFiles(CMSDatabase $db, $messageid){
-		$sql = "
-			SELECT 
-				bf.filehash as id,
-				f.filename as nm,
-				f.filesize as sz
-			FROM ".$db->prefix."spt_file bf
-			INNER JOIN ".$db->prefix."fm_file f ON bf.filehash=f.filehash
-			WHERE bf.messageid=".bkint($messageid)."
-		";
-		return $db->query_read($sql);
-	}
-	
-	public static function MessageFileAppend(CMSDatabase $db, $messageid, $filehash, $userid){
-		$sql = "
-			INSERT INTO ".$db->prefix."spt_file (messageid, filehash, userid) VALUES
-			(
-				".bkint($messageid).",
-				'".bkstr($filehash)."',
-				".bkint($userid)."
-			)
-		";
-		$db->query_write($sql);
-	}
-	
-	public static function MessageFileRemove(CMSDatabase $db, $messageid, $filehash){
-		$sql = "
-			DELETE FROM ".$db->prefix."spt_file
-			WHERE messageid=".bkint($messageid)." AND filehash='".bkstr($filehash)."' 
 		";
 		$db->query_write($sql);
 	}

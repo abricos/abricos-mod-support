@@ -13,15 +13,16 @@ Component.entryPoint = function(){
 	
 	var NS = this.namespace,
 		BP = Brick.Permission,
-		moduleName = this.moduleName;;
+		mn = this.moduleName;
 
 	NS.roles = {
 		load: function(callback){
 			BP.load(function(){
-				NS.roles['isAdmin'] = BP.check(moduleName, '50') == 1; // Админ
-				NS.roles['isModer'] = BP.check(moduleName, '40') == 1; // Модератор
-				NS.roles['isWrite'] = BP.check(moduleName, '30') == 1; // Запись
-				NS.roles['isView'] = BP.check(moduleName, '10') == 1; // Чтение
+				var r = NS.roles;
+				r['isAdmin'] = BP.check(mn, '50')==1; // Админ
+				r['isModer'] = BP.check(mn, '40')==1 || NS.roles['isAdmin']; // Модератор
+				r['isWrite'] = BP.check(mn, '30')==1 || NS.roles['isModer']; // Запись
+				r['isView'] = BP.check(mn, '10')==1 || r['isWrite']; // Чтение
 				callback();
 			});
 		}

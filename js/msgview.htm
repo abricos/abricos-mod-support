@@ -9,7 +9,6 @@
 			<td class="leftcol">
 				<div class="colbody">
 				
-					
 					<div class="navigate">
 						<span class="item {v#first}">
 							<a href="#app=support/board/showBoardPanel">Сообщения</a>
@@ -19,8 +18,6 @@
 						</span>
 					</div>
 					
-					
-				
 					<div id="{i#messagebody}" class="messagebody aw-page-content">
 						<img src="/images/loading.gif" />
 					</div>
@@ -31,13 +28,10 @@
 					</ul>
 					<div class="clear"></div>
 					
-					
-
 					<div class="manbuttons" id="{i#manbuttons}">
 						<div id="{i#buttons}">
-							<a id="{i#bopen}" style="display: none;" class="bsetexec btkbt" href="#" title="Открыть задачу повторно">Открыть повторно</a>
-							<a id="{i#barhive}" style="display: none;" class="bsetexec btkbt" href="#" title="Переместить задачу в архив">В архив</a>
-							<a id="{i#brestore}" style="display: none;" class="bsetexec btkbt" href="#" title="Восстановить удаленную задачу">Восстановить</a>
+							<a id="{i#bopen}" style="display: none;" class="bsetexec btkbt" href="#" title="Открыть">Открыть</a>
+							<a id="{i#bclose}" style="display: none;" class="bsetexec btkbt" href="#" title="Закрыть">Закрыть</a>
 							
 							<a id="{i#beditor}" class="beditor btkbt" href="#app=support/msgeditor/showMessageEditorPanel/{v#id}/">Редактировать</a>
 							<a id="{i#bremove}" class="bremove btkbt" href="#">Удалить</a>
@@ -46,11 +40,11 @@
 					</div>
 					
 					<div id="{i#dialogclose}" class="dialog alarm" style="display: none;">
-						<h4>Завершение задачи</h4>
+						<h4>Закрыть сообщение</h4>
 						<p>
-							Внимание! Эта задача содержит открытые подзадачи.<br />
-							Завершение этой задачи автоматически завершит все подзадачи. <br />
-							Вы действительно хотите завершить эту задачу и все ее подзадачи?
+							Внимание! <br />
+							Вы действительно хотите закрыть это сообщение?<br />
+							Закрытое сообщение: можно - просмотреть, удалить; нельзя - редактировать, комментировать.
 						</p>
 						<div class="dbtns">
 							<a id="{i#bcloseyes}" class="yes" href="#">Подтверждаю</a>
@@ -59,9 +53,9 @@
 					</div>
 
 					<div id="{i#dialogremove}" class="dialog alarm" style="display: none;">
-						<h4>Удаление проекта</h4>
+						<h4>Удалить сообщение</h4>
 						<p>
-							Внимание! Вы действительно хотите удалить этот проект?
+							Внимание! Вы действительно хотите удалить сообщение?
 						</p>
 						<div class="dbtns">
 							<a id="{i#bremoveyes}" class="yes" href="#">Подтверждаю</a>
@@ -69,10 +63,7 @@
 						</div>
 					</div>
 
-
 					<div class="comments" id="{i#comments}"></div>
-					
-				
 				</div>
 			</td>
 			<td class="rightcol">
