@@ -178,11 +178,14 @@ Component.entryPoint = function(){
 			case tp['beditor']: this.messageEditorShow(); return true;
 			
 			case tp['bclose']: 
-			case tp['bclosens']: 
-				this.messageClose(); return true;
-			
+			case tp['bclosens']: this.messageClose(); return true;
 			case tp['bcloseno']: this.messageCloseCancel(); return true;
 			case tp['bcloseyes']: this.messageCloseMethod(); return true;
+
+			case tp['bremove']: this.messageRemove(); return true;
+			case tp['bremoveno']: this.messageRemoveCancel(); return true;
+			case tp['bremoveyes']: this.messageRemoveMethod(); return true;
+
 			
 			/*
 			
@@ -190,11 +193,6 @@ Component.entryPoint = function(){
 			case tp['bunsetexec']: this.unsetExecMessage(); return true;
 			
 
-			case tp['bremove']: 
-				this.messageRemove(); return true;
-			
-			case tp['bremoveno']: this.messageRemoveCancel(); return true;
-			case tp['bremoveyes']: this.messageRemoveMethod(); return true;
 
 			case tp['brestore']: 
 				this.messageRestore(); return true;
@@ -232,23 +230,17 @@ Component.entryPoint = function(){
 			NS.supportManager.messageClose(this.message.id, function(){
 				__self._shLoading(false);
 			});
-		}
-		
-		
-		/*
-		,
-
-		
-		
-		messageRemoveCancel: function(){
-			var TM = this._TM;
-			TM.elShow('panel.manbuttons');
-			TM.elHide('panel.dialogremove');
 		},
+
 		messageRemove: function(){
 			var TM = this._TM;
 			TM.elHide('panel.manbuttons');
 			TM.elShow('panel.dialogremove');
+		},
+		messageRemoveCancel: function(){
+			var TM = this._TM;
+			TM.elShow('panel.manbuttons');
+			TM.elHide('panel.dialogremove');
 		},
 		messageRemoveMethod: function(){
 			this.messageRemoveCancel();
@@ -257,7 +249,15 @@ Component.entryPoint = function(){
 			NS.supportManager.messageRemove(this.message.id, function(){
 				__self._shLoading(false);
 			});
-		},
+		}
+
+		
+		
+		/*
+		,
+
+		
+		
 		messageRestore: function(){
 			var __self = this;
 			this._shLoading(true);

@@ -108,7 +108,7 @@ Component.entryPoint = function(){
 		},
 		
 		isRemoved: function(){
-			return this.status*1 == MessageStatus.REMOVE;
+			return this.status*1 == MessageStatus.REMOVED;
 		},
 		
 		isClosed: function(){
@@ -281,6 +281,9 @@ Component.entryPoint = function(){
 		},
 		messageClose: function(messageid, callback){ // закрыть сообщение
 			this._messageAJAX(messageid, 'messageclose', callback);
+		},
+		messageRemove: function(messageid, callback){ // удалить сообщение
+			this._messageAJAX(messageid, 'messageremove', callback);
 		}
 		
 	};

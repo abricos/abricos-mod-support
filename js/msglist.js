@@ -96,7 +96,9 @@ Component.entryPoint = function(){
 					'tl': msg.title,
 					'cmt': msg.cmt,
 					'cmtuser': TM.replace('user', {'uid': user.id, 'unm': user.getUserName()}),
-					'cmtdate': Brick.dateExt.convert(msg.updDate)
+					'cmtdate': Brick.dateExt.convert(msg.updDate),
+					'closed': msg.isClosed() ? 'closed' : '',
+					'removed': msg.isRemoved() ? 'removed' : ''
 				};
 				if (msg.cmt > 0){
 					var user = NS.supportManager.users.get(msg.cmtUserId);

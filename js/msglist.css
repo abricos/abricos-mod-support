@@ -73,21 +73,36 @@
 	display: inherit;
 }
 
+.aw-support .mlist table td a {
+	text-decoration: none;
+}
 
 .aw-support .mlist tr.row td {
 	padding: 0.5em 0.3em 0.6em 0.3em;
 }
 
 .aw-support .mlist table th.tname {
-	width: 60%;
+	width: 70%;
 }
 .aw-support .mlist table th.tname .tl {
     margin-left: 30px;
 }
+
 .aw-support .mlist .tname .ch-ico {
 	float: left;
 	height: 15px;
 }
+.aw-support .mlist div.ch-btn {
+	background: url("/modules/support/images/icons.png") no-repeat scroll -1000px -1000px transparent;
+	margin-top: 2px;
+    margin-left: 4px;
+    width: 11px;
+    height: 11px;
+}
+.aw-support .mlist .closed div.ch-btn {
+	background-position: -69px -11px;
+}
+
 .aw-support .mlist .tname .ch-tl {
 	margin-left: 20px;
 	white-space: nowrap;
@@ -108,6 +123,20 @@
     background: url("/modules/support/images/shadow-row.png") repeat-y scroll 0 0 transparent;
 }
 
+/* колонка кол-ва комментарий */
+.aw-support .mlist table th.tcmtcount {
+	width: 10em;
+}
+
+.aw-support .mlist table td.tcmtcount {
+	vertical-align: middle;
+	text-align: center;
+}
+.aw-support .mlist table th.tcmtcount .tl {
+    margin-left: 1em;
+}
+
+/* колонка последний комментарий */
 .aw-support .mlist tr.row td.tlastcmt {
 	padding: 0.1em 0.3em 0.1em 0.3em;
 	font-size: .8em;
@@ -118,96 +147,6 @@
 
 
 /*
-.aw-support .mlist div.ch-btn {
-	background: url("/modules/support/images/icons.png") no-repeat scroll -80px 0 transparent;
-    cursor: pointer;
-	margin-top: 0.25em;
-    margin-left: 4px;
-    width: 11px;
-    height: 11px;
-}
-.aw-support .mlist .expanded div.ch-btn {
-	background-position: -80px -11px;
-}
-.aw-support .mlist .nochild div.ch-btn {
-    background-image: none;
-}
-.aw-support .mlist .tname .new,
-.aw-support .mlist .tname .chnew {
-	display: none;
-	font-family: sans-serif;
-	vertical-align: top;
-	font-size: 60%;
-	color: red;
-}
-.aw-support .mlist .tname .chnew {
-	font-size: 50%;
-	vertical-align: bottom;
-}
-.aw-support .mlist .tchnew .tname .chnew,
-.aw-support .mlist .tnew .tname .new {
-	display: inline;
-}
-/**/
-.aw-support .mlist .level0 .tname .ch-ico{}
-.aw-support .mlist .level0 .tname .ch-tl	{font-size:		1.3em;}
-
-.aw-support .mlist .level1 .tname .ch-ico{margin-left:	15px;}
-.aw-support .mlist .level1 .tname .ch-tl {font-size:		1.2em;}
-
-.aw-support .mlist .level2 .tname .ch-ico{margin-left:	30px;}
-.aw-support .mlist .level2 .tname .ch-tl {font-size:		1.1em;}
-
-.aw-support .mlist .level3 .tname .ch-ico{margin-left:	45px;}
-.aw-support .mlist .level3 .tname .ch-tl {font-size:		1em;}
-
-.aw-support .mlist .level4 .tname .ch-ico{margin-left:	60px;}
-.aw-support .mlist .level4 .tname .ch-tl {font-size:		0.9em;}
-
-.aw-support .mlist .level5 .tname .ch-ico{margin-left:	75px;}
-.aw-support .mlist .level5 .tname .ch-tl {font-size:		0.8em;}
-
-.aw-support .mlist .level6 .tname .ch-ico{margin-left:	90px;}
-.aw-support .mlist .level6 .tname .ch-tl {font-size:		0.75em;}
-
-.aw-support .mlist .level7 .tname .ch-ico{margin-left:	105px;}
-.aw-support .mlist .level7 .tname .ch-tl {font-size:		0.7em;}
-
-.aw-support .mlist .level8 .tname .ch-ico{margin-left:	120px;}
-.aw-support .mlist .level8 .tname .ch-tl {font-size:		0.65em;}
-
-.aw-support .mlist .level9 .tname .ch-ico{margin-left:	135px;}
-.aw-support .mlist .level9 .tname .ch-tl {font-size:		0.6em;}
-
-.aw-support .mlist .level10 .tname .ch-ico{margin-left:	150px;}
-.aw-support .mlist .level10 .tname .ch-tl {font-size:	0.55em;}
-
-.aw-support .mlist .level11 .tname .ch-ico{margin-left:	150px;}
-.aw-support .mlist .level11 .tname .ch-tl {font-size:	0.55em;}
-
-.aw-support .mlist .level12 .tname .ch-ico{margin-left:	150px;}
-.aw-support .mlist .level12 .tname .ch-tl {font-size:	0.55em;}
-
-.aw-support .mlist .level13 .tname .ch-ico{margin-left:	150px;}
-.aw-support .mlist .level13 .tname .ch-tl {font-size:	0.55em;}
-
-.aw-support .mlist .level14 .tname .ch-ico{margin-left:	150px;}
-.aw-support .mlist .level14 .tname .ch-tl {font-size:	0.55em;}
-
-.aw-support .mlist .level15 .tname .ch-ico{margin-left:	150px;}
-.aw-support .mlist .level15 .tname .ch-tl {font-size:	0.55em;}
-
-.aw-support .mlist .level16 .tname .ch-ico{margin-left:	150px;}
-.aw-support .mlist .level16 .tname .ch-tl {font-size:	0.55em;}
-
-.aw-support .mlist table th.tddl {
-	width: 9em;
-}
-
-.aw-support .mlist table td.tddl {
-	vertical-align: middle;
-	font-size: 0.9em;
-}
 
 .aw-support .mlist table th.tautor, 
 .aw-support .mlist table th.texec {
@@ -244,11 +183,9 @@
 .aw-support .mlist table td.twork {
 	vertical-align: middle;
 }
+/**/
 
-.aw-support .mlist table td a {
-	text-decoration: none;
-}
-
+/*
 .aw-support .mlist table .expired td, 
 .aw-support .mlist table .expired td a,
 .aw-support .mlist table .expired td.tprt .tl {
@@ -261,6 +198,8 @@
 .aw-support .mlist table .closed td.tprt .tl {
 	color: #839097; 
 }
+
+/**/
 
 .aw-support .mlist table .removed td,
 .aw-support .mlist table .removed td .prtclr,  

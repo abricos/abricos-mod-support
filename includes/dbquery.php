@@ -90,15 +90,13 @@ class SupportQuery {
 	
 	public static function MessageList(CMSDatabase $db, $userid, $isModer, $lastupdate = 0){
 		$lastupdate = bkint($lastupdate);
-		$where = "WHERE m.upddate > ".$lastupdate." OR m.cmtdate > ".$lastupdate."";
+		$where = "WHERE (m.upddate > ".$lastupdate." OR m.cmtdate > ".$lastupdate.") ";
 		if (!$isModer){
-			$where .= " AND (m.isprivate=0 OR (m.isprivate=1 AND m.userid=".bkint($userid)."))";
+			$where .= " AND (m.isprivate=0 OR (m.isprivate=1 AND m.userid=".bkint($userid).")) AND m.status != ".SupportStatus::REMOVED;
 		}
 		
 		$sql = "
-			SELECT
-				".SupportQuery::MessageFields($db)."
-				
+			SELECT ".SupportQuery::MessageFields($db)."
 			FROM ".$db->prefix."spt_message m
 			".$where."
 			ORDER BY m.upddate DESC

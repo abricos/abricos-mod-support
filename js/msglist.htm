@@ -15,14 +15,14 @@
 		</th>
 		<th class="tcmtcount">
 			<ul>
-				<li class="tl"><a id="{i#sortname}" href="#" title="Количество комментарий">Комментарий</a></li>
+				<li class="tl"><a id="{i#sortcmtcount}" href="#" title="Количество комментарий">Комментарий</a></li>
 				<li><div class="sort sortstr-asc"></div></li>
 				<li><div class="sort sortstr-desc"></div></li>
 			</ul>
 		</th>
 		<th class="tlastcmt">
 			<ul>
-				<li class="tl"><a id="{i#sortname}" href="#">Последний комментарий</a></li>
+				<li class="tl"><a id="{i#sortcmtdate}" href="#">Последний комментарий</a></li>
 				<li><div class="sort sortstr-asc"></div></li>
 				<li><div class="sort sortstr-desc"></div></li>
 			</ul>
@@ -32,8 +32,9 @@
 </table>
 
 <!--{row}-->
-<tr id="{i#id}-{v#id}" class="row {v#removed}">
+<tr id="{i#id}-{v#id}" class="row {v#removed} {v#closed}">
 	<td class="tname">
+		<div class="ch-ico"><div class="ch-btn"></div></div>
 		<div class="ch-tl">
 			<a href="#app=support/msgview/showMessageViewPanel/{v#id}/" title="{v#tl}">{v#tl}</a>
 			<div class="shadow"></div>

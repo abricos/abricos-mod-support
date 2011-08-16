@@ -59,15 +59,15 @@ class SupportManager extends ModuleManager {
 	private function _AJAX($d){
 		
 		switch($d->do){
-			case 'messagesave': return $this->MessageSave($d->message);
-			case 'message': return $this->Message($d->messageid);
-			case 'sync': return $this->Sync();
-			case 'messageclose': return $this->MessageClose($d->messageid);
+			case 'messagesave':		return $this->MessageSave($d->message);
+			case 'message': 		return $this->Message($d->messageid);
+			case 'sync':			return $this->Sync();
+			case 'messageclose': 	return $this->MessageClose($d->messageid);
+			case 'messageremove': 	return $this->MessageRemove($d->messageid);
 			
 			/*
 			case 'messagesetexec': return $this->MessageSetExec($d->messageid);
 			case 'messageunsetexec': return $this->MessageUnsetExec($d->messageid);
-			case 'messageremove': return $this->MessageRemove($d->messageid);
 			case 'messagerestore': return $this->MessageRestore($d->messageid);
 			case 'messagearhive': return $this->MessageArhive($d->messageid);
 			case 'messageopen': return $this->MessageOpen($d->messageid);
@@ -136,8 +136,6 @@ class SupportManager extends ModuleManager {
 		
 		return $ret;
 	}	
-	
-	
 	
 	/**
 	 * Сохранить сообщение
@@ -417,231 +415,22 @@ class SupportManager extends ModuleManager {
 		return $this->Message($messageid);
 	}
 	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	/**
-	 * Список участников в проекте
-	 * 
-	 * @param integer $messageid идентификатор проекта
-	 * @param boolean $retarray
-	 */
-	public function MessageUserList($messageid, $retarray = false){
-		if (!$this->IsViewRole()){ return null; }
-		$rows = SupportQuery::MessageUserList($this->db, $messageid);
-		if (!$retarray){ return $rows; }
-		return $this->ToArray($rows);
-	}
-	
-	/**
-	 * Список участников в проекте с расшириными полями для отправки уведомлений
-	 * 
-	 * @param integer $messageid идентификатор проекта
-	 * @param boolean $retarray
-	 */
-	private function MessageUserListForNotify($messageid, $retarray = false){
-		$rows = SupportQuery::MessageUserListForNotify($this->db, $messageid);
-		if (!$retarray){ return $rows; }
-		return $this->ToArray($rows);
-	}
-	
-	
-	/**
-	 * Удалить задачу
+	 * Удалить сообщение. Роль модератора
 	 * 
 	 * @param integer $messageid
 	 */
 	public function MessageRemove($messageid){
-		if (!$this->MessageAccess($messageid)){ return null; }
+		if (!$this->IsModerRole()){ return null; }
 		
-		// сначало закрыть все подзадачи
-		$rows = SupportQuery::Board($this->db, $this->userid, 0, $messageid);
-		while (($row = $this->db->fetch_array($rows))){
-			$this->MessageRemove($row['id']);
-		}
+		$msg = $this->Message($messageid);
+		if ($msg['st'] != SupportStatus::OPENED){ return null; } // закрыть можно только открытое сообщение
 		
-		$message = SupportQuery::Message($this->db, $messageid, $this->userid, true);
-		
-		if ($message['st'] == SupportStatus::DRAW_REMOVE){ return null; }
-		
-		$history = new SupportHistory($this->userid);
-		$history->SetStatus($message, SupportStatus::DRAW_REMOVE, $this->userid);
-		$history->Save();
-		
-		SupportQuery::MessageSetStatus($this->db, $messageid, SupportStatus::DRAW_REMOVE, $this->userid);
+		SupportQuery::MessageSetStatus($this->db, $messageid, SupportStatus::REMOVED, $this->userid);
 		
 		return $this->Message($messageid);
 	}
-	
-	/**
-	 * Восстановить удаленную задачу
-	 */
-	public function MessageRestore($messageid){
-		if (!$this->MessageAccess($messageid)){ return null; }
-		
-		$message = SupportQuery::Message($this->db, $messageid, $this->userid, true);
-		if ($message['st'] != SupportStatus::DRAW_REMOVE){ return null; }
-		
-		// восстановить задачу
-		$rows = SupportQuery::MessageHistory($this->db, $messageid);
-		$i=0; 
-		$prevStatus=SupportStatus::DRAW_OPEN;
-		while (($row = $this->db->fetch_array($rows))){
-			if ($i == 1){
-				$prevStatus = $row['st'];
-				break;
-			}
-			$i++;
-		}
-		
-		$history = new SupportHistory($this->userid);
-		$history->SetStatus($message, $prevStatus, $this->userid);
-		$history->Save();
-		
-		SupportQuery::MessageSetStatus($this->db, $messageid, $prevStatus, $this->userid);
-		
-		return $this->Message($messageid);
-	}
-	
-	/**
-	 * Открыть задачу повторно
-	 * 
-	 * @param integer $messageid
-	 */
-	public function MessageOpen($messageid){
-		if (!$this->MessageAccess($messageid)){ return null; }
-		
-		$message = SupportQuery::Message($this->db, $messageid, $this->userid, true);
-		
-		if ($message['st'] != SupportStatus::DRAW_CLOSE &&  
-			$message['st'] != SupportStatus::DRAW_REMOVE ){ 
-			return null; 
-		}
-		
-		$history = new SupportHistory($this->userid);
-		$history->SetStatus($message, SupportStatus::DRAW_REOPEN, $this->userid);
-		$history->Save();
-		
-		SupportQuery::MessageSetStatus($this->db, $messageid, SupportStatus::DRAW_REOPEN, $this->userid);
-		
-		return $this->Message($messageid);
-	}
-	
-	/**
-	 * Переместить задачу в архив
-	 * 
-	 * @param integer $messageid
-	 */
-	public function MessageArhive($messageid){
-		if (!$this->MessageAccess($messageid)){ return null; }
-		
-		$message = SupportQuery::Message($this->db, $messageid, $this->userid, true);
-		
-		if ($message['st'] != SupportStatus::DRAW_CLOSE){ return null; }
-		
-		$history = new SupportHistory($this->userid);
-		$history->SetStatus($message, SupportStatus::DRAW_ARHIVE, $this->userid);
-		$history->Save();
-		
-		SupportQuery::MessageSetStatus($this->db, $messageid, SupportStatus::DRAW_ARHIVE, $this->userid);
-		
-		return $this->Message($messageid);
-	}
-	
-	public function MessageVoting($messageid, $value){
-		if (!$this->MessageAccess($messageid)){ return null; }
-		
-		SupportQuery::MessageVoting($this->db, $messageid, $this->userid, $value);
-		
-		return $value;
-	}
-	
-	public function MessageFavorite($messageid, $value){
-		if (!$this->MessageAccess($messageid)){ return null; }
-		
-		SupportQuery::MessageFavorite($this->db, $messageid, $this->userid, $value);
-		
-		return $value;
-	}
 
-	public function MessageExpand($messageid, $value){
-		if (!$this->MessageAccess($messageid)){ return null; }
-		SupportQuery::MessageExpand($this->db, $messageid, $this->userid, $value);
-		return $value;
-	}
-	
-	public function MessageShowComments($messageid, $value){
-		if (!$this->MessageAccess($messageid)){ return null; }
-		SupportQuery::MessageShowComments($this->db, $messageid, $this->userid, $value);
-		return $value;
-	}
-	
-	
-
-
-	public function ImageList($messageid){
-		if (!$this->MessageAccess($messageid)){ return null; }
-		$rows = SupportQuery::ImageList($this->db, $messageid);
-		$ret = array();
-		while (($row = $this->db->fetch_array($rows))){
-			$row['d'] = json_decode($row['d']);
-			array_push($ret, $row);
-		}
-		return $ret;
-	}
-
-	public function History($messageid, $firstHId){
-		if (!$this->IsViewRole()){ return null; }
-		
-		$messageid = intval($messageid);
-		if ($messageid > 0){
-			if (!$this->MessageAccess($messageid)){ return null; }
-			$rows = SupportQuery::MessageHistory($this->db, $messageid, $firstHId);
-		}else{
-			$rows = SupportQuery::BoardHistory($this->db, $this->userid, 0, $firstHId);
-		}
-		$hst = array();
-		while (($row = $this->db->fetch_array($rows))){
-			array_push($hst, $row);
-		}
-		return $hst;
-	}
-	
 }
 
 ?>
