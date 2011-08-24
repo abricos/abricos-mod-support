@@ -96,7 +96,7 @@ class SupportPermission extends AbricosPermission {
 			
 			new AbricosRole(SupportAction::MODER, SupportGroup::MODERATOR),
 			
-			new AbricosRole(SupportAction::ADMIN, UserGroup::ADMIN),
+			new AbricosRole(SupportAction::ADMIN, UserGroup::ADMIN)
 		);
 		parent::__construct($module, $defRoles);
 	}
@@ -112,6 +112,6 @@ class SupportPermission extends AbricosPermission {
 }
 
 $mod = new SupportModule();
-CMSRegistry::$instance->modules->Register($mod);;
+CMSRegistry::$instance->modules->Register($mod);
 
 ?>
