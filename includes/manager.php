@@ -64,21 +64,6 @@ class SupportManager extends ModuleManager {
 			case 'sync':			return $this->Sync();
 			case 'messageclose': 	return $this->MessageClose($d->messageid);
 			case 'messageremove': 	return $this->MessageRemove($d->messageid);
-			
-			/*
-			case 'messagesetexec': return $this->MessageSetExec($d->messageid);
-			case 'messageunsetexec': return $this->MessageUnsetExec($d->messageid);
-			case 'messagerestore': return $this->MessageRestore($d->messageid);
-			case 'messagearhive': return $this->MessageArhive($d->messageid);
-			case 'messageopen': return $this->MessageOpen($d->messageid);
-			case 'messagevoting': return $this->MessageVoting($d->messageid, $d->val);
-			case 'messagefavorite': return $this->MessageFavorite($d->messageid, $d->val);
-			case 'messageexpand': return $this->MessageExpand($d->messageid, $d->val);
-			case 'messageshowcmt': return $this->MessageShowComments($d->messageid, $d->val);
-			case 'history': return $this->History($d->socid, $d->firstid);
-			case 'usercfgupdate': return $this->UserConfigUpdate($d->cfg);
-			case 'lastcomments': return $this->CommentList();
-			/**/
 		}
 		return null;
 	}
