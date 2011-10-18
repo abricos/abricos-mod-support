@@ -50,7 +50,7 @@ Component.entryPoint = function(){
 
 			this.list = NS.supportManager.list;
 			
-			buildTemplate(this, 'widget,table,row,user');
+			buildTemplate(this, 'widget,table,row,user,empttitle');
 			container.innerHTML = this._TM.replace('widget');
 
 			var __self = this;
@@ -93,7 +93,7 @@ Component.entryPoint = function(){
 				var user = NS.supportManager.users.get(msg.userid);
 				var d = {
 					'id': msg.id,
-					'tl': msg.title,
+					'tl': msg.title.length > 0 ? msg.title : TM.replace('empttitle'),
 					'cmt': msg.cmt,
 					'cmtuser': TM.replace('user', {'uid': user.id, 'unm': user.getUserName()}),
 					'cmtdate': Brick.dateExt.convert(msg.updDate),

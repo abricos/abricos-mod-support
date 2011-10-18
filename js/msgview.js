@@ -62,13 +62,13 @@ Component.entryPoint = function(){
 	};
 	YAHOO.extend(MessageViewPanel, Brick.widget.Panel, {
 		initTemplate: function(){
-			buildTemplate(this, 'panel,user,frow');
+			buildTemplate(this, 'panel,user,frow,empttitle');
 			
 			var message = this.message;
 
 			return this._TM.replace('panel', {
 				'id': message.id,
-				'tl': message.title
+				'tl': message.title.length > 0 ? message.title : this._TM.replace('empttitle')
 			});
 		},
 		onLoad: function(){
@@ -84,15 +84,21 @@ Component.entryPoint = function(){
 			NS.supportManager.messageLoad(message.id, function(){
 				__self.renderMessage();
 			});
+			
+			NS.supportManager.messagesChangedEvent.subscribe(this.onMessagesChanged, this, true);
 		},
 		destroy: function(){
 			MessageViewPanel.superclass.destroy.call(this);
+		},
+		onMessagesChanged: function(){
+			this.renderMessage();
 		},
 		renderMessage: function(){
 			var TM = this._TM, message = this.message, 
 				__self = this, 
 				gel = function(nm){ return TM.getEl('panel.'+nm); };
 			
+			gel('title').innerHTML = message.title.length > 0 ? message.title : TM.replace('empttitle');
 			gel('messagebody').innerHTML = message.body;
 			
 			if (this.firstLoad){ // первичная рендер
