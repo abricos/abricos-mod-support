@@ -40,9 +40,16 @@ Component.entryPoint = function(){
 			return this._TM.replace('panel');
 		},
 		onLoad: function(){
-			var TM = this._TM;
+			var TM = this._TM, __self = this;
 			
 			this.gmenu = new NS.GlobalMenuWidget(TM.getEl('panel.gmenu'), 'list');
+			
+			NS.buildManager(function(){
+				__self.onBuildManager();
+			});
+		},
+		onBuildManager: function(){
+			var TM = this._TM;
 			this.list = new NS.MessageListWidget(TM.getEl('panel.list'));
 			
 			if (!R['isWrite']){
@@ -57,10 +64,12 @@ Component.entryPoint = function(){
 	});
 	NS.BoardPanel = BoardPanel;
 	
-	API.showBoardPanel = function(){
-		NS.buildManager(function(){
-			new BoardPanel();
-		});
+	var activePanel = null;
+	NS.API.showBoardPanel = function(){
+		if (L.isNull(activePanel) || activePanel.isDestroy()){
+			activePanel = new BoardPanel();
+		}
+		return activePanel;
 	};
 	
 	API.showBoardPanelWebos = function(){

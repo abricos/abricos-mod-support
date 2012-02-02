@@ -9,8 +9,8 @@
 
 class SupportQuery {
 	
-	public static function MessageAppend(CMSDatabase $db, $msg, $pubkey){
-		$contentid = CoreQuery::ContentAppend($db, $msg->bd, 'support');
+	public static function MessageAppend(Ab_Database $db, $msg, $pubkey){
+		$contentid = Ab_CoreQuery::ContentAppend($db, $msg->bd, 'support');
 		
 		$sql = "
 			INSERT INTO ".$db->prefix."spt_message (
@@ -29,9 +29,9 @@ class SupportQuery {
 		return $db->insert_id();
 	}
 	
-	public static function MessageUpdate(CMSDatabase $db, $msg, $userid){
+	public static function MessageUpdate(Ab_Database $db, $msg, $userid){
 		$info = SupportQuery::Message($db, $msg->id, $userid, true);
-		CoreQuery::ContentUpdate($db, $info['ctid'], $msg->bd);
+		Ab_CoreQuery::ContentUpdate($db, $info['ctid'], $msg->bd);
 		$sql = "
 			UPDATE ".$db->prefix."spt_message
 			SET
@@ -43,7 +43,7 @@ class SupportQuery {
 		$db->query_write($sql);
 	}
 	
-	public static function MessageFields (CMSDatabase $db){
+	public static function MessageFields (Ab_Database $db){
 		return "
 			m.messageid as id,
 			m.userid as uid,
@@ -60,7 +60,7 @@ class SupportQuery {
 		";
 	}
 	
-	public static function Message(CMSDatabase $db, $messageid, $retarray = false){
+	public static function Message(Ab_Database $db, $messageid, $retarray = false){
 		$sql = "
 			SELECT
 				".SupportQuery::MessageFields($db).",
@@ -74,7 +74,7 @@ class SupportQuery {
 		return $retarray ? $db->query_first($sql) : $db->query_read($sql);
 	}
 
-	public static function MessageByContentId(CMSDatabase $db, $contentid, $retarray = false){
+	public static function MessageByContentId(Ab_Database $db, $contentid, $retarray = false){
 		$sql = "
 			SELECT
 				".SupportQuery::MessageFields($db).",
@@ -88,7 +88,7 @@ class SupportQuery {
 		return $retarray ? $db->query_first($sql) : $db->query_read($sql);
 	}
 	
-	public static function MessageList(CMSDatabase $db, $userid, $isModer, $lastupdate = 0){
+	public static function MessageList(Ab_Database $db, $userid, $isModer, $lastupdate = 0){
 		$lastupdate = bkint($lastupdate);
 		$where = "WHERE (m.upddate > ".$lastupdate." OR m.cmtdate > ".$lastupdate.") ";
 		if (!$isModer){
@@ -105,7 +105,7 @@ class SupportQuery {
 	}
 	
 	
-	public static function Users(CMSDatabase $db, $uids){
+	public static function Users(Ab_Database $db, $uids){
 		$ids = array();
 		foreach ($uids as $uid => $v){
 			array_push($ids, "u.userid=".bkint($uid));
@@ -125,7 +125,7 @@ class SupportQuery {
 		return $db->query_read($sql);
 	}
 	
-	public static function MessageCommentInfoUpdate(CMSDatabase $db, $messageid){
+	public static function MessageCommentInfoUpdate(Ab_Database $db, $messageid){
 		
 		$sql = "
 			SELECT
@@ -169,7 +169,7 @@ class SupportQuery {
 	}
 	
 	
-	public static function CommentList(CMSDatabase $db, $userid, $isModer){
+	public static function CommentList(Ab_Database $db, $userid, $isModer){
 		$sql = "
 			SELECT 
 				a.commentid as id,
@@ -197,7 +197,7 @@ class SupportQuery {
 		return $db->query_read($sql);
 	}
 	
-	public static function ModeratorList(CMSDatabase $db){
+	public static function ModeratorList(Ab_Database $db){
 		$sql = "
 			SELECT 
 				u.userid as id,
@@ -213,7 +213,7 @@ class SupportQuery {
 		return $db->query_read($sql);
 	}
 
-	public static function MessageFiles(CMSDatabase $db, $messageid){
+	public static function MessageFiles(Ab_Database $db, $messageid){
 		$sql = "
 			SELECT 
 				bf.filehash as id,
@@ -226,7 +226,7 @@ class SupportQuery {
 		return $db->query_read($sql);
 	}
 	
-	public static function MessageFileAppend(CMSDatabase $db, $messageid, $filehash, $userid){
+	public static function MessageFileAppend(Ab_Database $db, $messageid, $filehash, $userid){
 		$sql = "
 			INSERT INTO ".$db->prefix."spt_file (messageid, filehash, userid) VALUES
 			(
@@ -238,7 +238,7 @@ class SupportQuery {
 		$db->query_write($sql);
 	}
 	
-	public static function MessageFileRemove(CMSDatabase $db, $messageid, $filehash){
+	public static function MessageFileRemove(Ab_Database $db, $messageid, $filehash){
 		$sql = "
 			DELETE FROM ".$db->prefix."spt_file
 			WHERE messageid=".bkint($messageid)." AND filehash='".bkstr($filehash)."' 
@@ -246,7 +246,7 @@ class SupportQuery {
 		$db->query_write($sql);
 	}
 	
-	public static function MessageSetStatus(CMSDatabase $db, $messageid, $status, $userid){
+	public static function MessageSetStatus(Ab_Database $db, $messageid, $status, $userid){
 		$sql = "
 			UPDATE ".$db->prefix."spt_message
 			SET
@@ -294,7 +294,7 @@ class SupportQuery {
 	
 
 	
-	public static function MyUserData(CMSDatabase $db, $userid, $retarray = false){
+	public static function MyUserData(Ab_Database $db, $userid, $retarray = false){
 		$sql = "
 			SELECT
 				DISTINCT
@@ -311,7 +311,7 @@ class SupportQuery {
 	}
 	
 
-	public static function MessageUnsetStatus(CMSDatabase $db, $messageid){
+	public static function MessageUnsetStatus(Ab_Database $db, $messageid){
 		$sql = "
 			UPDATE ".$db->prefix."spt_message
 			SET status=".SupportStatus::DRAW_OPEN.", statuserid=0, statdate=0
@@ -323,10 +323,10 @@ class SupportQuery {
 	/**
 	 * Список участников проекта
 	 * 
-	 * @param CMSDatabase $db
+	 * @param Ab_Database $db
 	 * @param integer $messageid
 	 */
-	public static function MessageUserList(CMSDatabase $db, $messageid){
+	public static function MessageUserList(Ab_Database $db, $messageid){
 		$sql = "
 			SELECT 
 				p.userid as id,
@@ -343,10 +343,10 @@ class SupportQuery {
 	/**
 	 * Список участников проекта с расшириными полями для служебных целей (отправка уведомлений и т.п.)
 	 * 
-	 * @param CMSDatabase $db
+	 * @param Ab_Database $db
 	 * @param integer $messageid
 	 */
-	public static function MessageUserListForNotify(CMSDatabase $db, $messageid){
+	public static function MessageUserListForNotify(Ab_Database $db, $messageid){
 		$sql = "
 			SELECT 
 				p.userid as id,

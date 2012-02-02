@@ -7,10 +7,10 @@
  * @author Alexander Kuzmin (roosit@abricos.org)
  */
 
-class SupportModule extends CMSModule {
+class SupportModule extends Ab_Module {
 	
 	public function __construct(){
-		$this->version = "0.1";
+		$this->version = "0.1.1";
 		$this->name = "support";
 		$this->permission = new SupportPermission($this);
 	}
@@ -83,20 +83,20 @@ class SupportStatus {
 }
 
 
-class SupportPermission extends AbricosPermission {
+class SupportPermission extends Ab_UserPermission {
 	
 	public function SupportPermission(SupportModule $module){
 		
 		$defRoles = array(
-			new AbricosRole(SupportAction::VIEW, UserGroup::REGISTERED),
-			new AbricosRole(SupportAction::VIEW, UserGroup::ADMIN),
+			new Ab_UserRole(SupportAction::VIEW, Ab_UserGroup::REGISTERED),
+			new Ab_UserRole(SupportAction::VIEW, Ab_UserGroup::ADMIN),
 			
-			new AbricosRole(SupportAction::WRITE, UserGroup::REGISTERED),
-			new AbricosRole(SupportAction::WRITE, UserGroup::ADMIN),
+			new Ab_UserRole(SupportAction::WRITE, Ab_UserGroup::REGISTERED),
+			new Ab_UserRole(SupportAction::WRITE, Ab_UserGroup::ADMIN),
 			
-			new AbricosRole(SupportAction::MODER, SupportGroup::MODERATOR),
+			new Ab_UserRole(SupportAction::MODER, SupportGroup::MODERATOR),
 			
-			new AbricosRole(SupportAction::ADMIN, UserGroup::ADMIN)
+			new Ab_UserRole(SupportAction::ADMIN, Ab_UserGroup::ADMIN)
 		);
 		parent::__construct($module, $defRoles);
 	}
@@ -111,7 +111,6 @@ class SupportPermission extends AbricosPermission {
 	}
 }
 
-$mod = new SupportModule();
-CMSRegistry::$instance->modules->Register($mod);
+Abricos::ModuleRegister(new SupportModule());
 
 ?>

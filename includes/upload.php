@@ -6,15 +6,16 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 */
 
-if (empty(CMSRegistry::$instance->user->info['userid'])){ return;  }
 
-$modFM = Brick::$modules->GetModule('filemanager');
+if (empty(Abricos::$user->id)){ return;  }
+
+$modFM = Abricos::GetModule('filemanager');
 if (empty($modFM)){ return; }
 
 $brick = Brick::$builder->brick;
 $var = &$brick->param->var;
 
-if (CMSRegistry::$instance->adress->dir[2] !== "go"){ return; }
+if (Abricos::$adress->dir[2] !== "go"){ return; }
 
 $uploadFile = FileManagerModule::$instance->GetManager()->CreateUploadByVar('image');
 $uploadFile->folderPath = "system/".date("d.m.Y", TIMENOW);

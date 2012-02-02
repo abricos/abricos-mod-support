@@ -10,7 +10,7 @@
 
 require_once 'dbquery.php';
 
-class SupportManager extends ModuleManager {
+class SupportManager extends Ab_ModuleManager {
 	
 	/**
 	 * @var SupportModule
@@ -18,42 +18,33 @@ class SupportManager extends ModuleManager {
 	public $module = null;
 	
 	/**
-	 * User
-	 * @var User
-	 */
-	public $user = null;
-	public $userid = 0;
-	
-	/**
 	 * @var SupportManager
 	 */
 	public static $instance = null; 
 	
-	public function SupportManager(SupportModule $module){
-		parent::ModuleManager($module);
+	public function __construct(SupportModule $module){
+		parent::__construct($module);
 		
-		$this->user = CMSRegistry::$instance->modules->GetModule('user');
-		$this->userid = $this->user->info['userid'];
 		SupportManager::$instance = $this;
 	}
 	
 	public function IsAdminRole(){
-		return $this->module->permission->CheckAction(SupportAction::ADMIN) > 0;
+		return $this->IsRoleEnable(SupportAction::ADMIN);
 	}
 	
 	public function IsModerRole(){
 		if ($this->IsAdminRole()){ return true; }
-		return $this->module->permission->CheckAction(SupportAction::MODER) > 0;
+		return $this->IsRoleEnable(SupportAction::MODER);
 	}
 	
 	public function IsWriteRole(){
 		if ($this->IsModerRole()){ return true; }
-		return $this->module->permission->CheckAction(SupportAction::WRITE) > 0;
+		return $this->IsRoleEnable(SupportAction::WRITE);
 	}
 	
 	public function IsViewRole(){
 		if ($this->IsWriteRole()){ return true; }
-		return $this->module->permission->CheckAction(SupportAction::VIEW) > 0;
+		return $this->IsRoleEnable(SupportAction::VIEW);
 	}
 	
 	private function _AJAX($d){
@@ -133,7 +124,7 @@ class SupportManager extends ModuleManager {
 		
 		$msg->id = intval($msg->id);
 		
-		$utmanager = CMSRegistry::$instance->GetUserTextManager();
+		$utmanager = Abricos::TextParser();
 		$msg->tl = $utmanager->Parser($msg->tl);
 		if (!$this->IsAdminRole()){
 			// порезать теги у описания
@@ -220,7 +211,7 @@ class SupportManager extends ModuleManager {
 					"prj" => $message['bd'],
 					"sitename" => Brick::$builder->phrase->Get('sys', 'site_name')
 				));
-				CMSRegistry::$instance->GetNotification()->SendMail($email, $subject, $body);
+				Abricos::Notify()->SendMail($email, $subject, $body);
 			}
 		}
 		
@@ -336,7 +327,7 @@ class SupportManager extends ModuleManager {
 						"cmt2" => $data->bd." ",
 						"sitename" => Brick::$builder->phrase->Get('sys', 'site_name')
 					));
-					CMSRegistry::$instance->GetNotification()->SendMail($email, $subject, $body);
+					Abricos::Notify()->SendMail($email, $subject, $body);
 				}
 			}
 		}
@@ -357,7 +348,7 @@ class SupportManager extends ModuleManager {
 					"cmt" => $data->bd." ",
 					"sitename" => Brick::$builder->phrase->Get('sys', 'site_name')
 				));
-				CMSRegistry::$instance->GetNotification()->SendMail($email, $subject, $body);
+				Abricos::Notify()->SendMail($email, $subject, $body);
 			}
 		}
 				
@@ -380,7 +371,7 @@ class SupportManager extends ModuleManager {
 				"cmt" => $data->bd." ",
 				"sitename" => Brick::$builder->phrase->Get('sys', 'site_name')
 			));
-			CMSRegistry::$instance->GetNotification()->SendMail($email, $subject, $body);
+			Abricos::Notify()->SendMail($email, $subject, $body);
 		}
 	}		
 	
