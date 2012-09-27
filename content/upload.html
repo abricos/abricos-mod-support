@@ -26,29 +26,29 @@
 </style>
 
 <div class="mod-support">
-	<h2>Загрузка файла</h2>
+	<h2>{#content.upload.2}</h2>
 	<form enctype="multipart/form-data" action="/support/upload/go/" method="POST" onsubmit="return beginUpload();">
 		
-		<p>Выберите файл изображения на своем компьютере</p>
+		<p>{#content.upload.1}</p>
 		<div id="btnsUpload">
 			<input type="file" name="image" class="image" size="40" />
-			<input type="submit" value="Загрузить" />
+			<input type="submit" value="{#content.upload.4}" />
 		</div>
 		<p id="loading" style="display: none">
-			<img src="/images/loading.gif" />&nbsp;Идет загрузка файла, пожалуйста, подождите...
+			<img src="/images/loading.gif" />&nbsp;{#content.upload.3}
 		</p>
 		<p class="errorpanel" id="errorpanel" style="display: none" >
-			Ну удалось загрузить изображение <b>{v#fname}</b>: 
-			<span id="et-1" style="display: none;">Неизвестный тип файла</span>
-			<span id="et-2" style="display: none;">Размер файла превышает допустимый</span>
-			<span id="et-3" style="display: none;">Ошибка сервера</span>
-			<span id="et-4" style="display: none;">Размер изображения превышает допустимый</span>
-			<span id="et-5" style="display: none;">Недостаточно свободного места в вашем профиле</span>
-			<span id="et-6" style="display: none;">Нет прав на загрузку файла</span>
-			<span id="et-7" style="display: none;">Файл с таким именем уже загружен</span>
-			<span id="et-8" style="display: none;">Необходимо выбрать файл для загрузки</span>
-			<span id="et-9" style="display: none;">Некорректное изображение</span>
-			<span id="et-10" style="display: none;">Некорректное изображение</span>
+			{#content.upload.5} 
+			<span id="et-1" style="display: none;">{#content.upload.6}</span>
+			<span id="et-2" style="display: none;">{#content.upload.7}</span>
+			<span id="et-3" style="display: none;">{#content.upload.8}</span>
+			<span id="et-4" style="display: none;">{#content.upload.9}</span>
+			<span id="et-5" style="display: none;">{#content.upload.10}</span>
+			<span id="et-6" style="display: none;">{#content.upload.11}</span>
+			<span id="et-7" style="display: none;">{#content.upload.12}</span>
+			<span id="et-8" style="display: none;">{#content.upload.13}</span>
+			<span id="et-9" style="display: none;">{#content.upload.14}</span>
+			<span id="et-10" style="display: none;">{#content.upload.14}</span>
 		</p>
 	</form>
 </div>

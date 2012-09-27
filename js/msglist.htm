@@ -1,28 +1,25 @@
-<!--{widget}-->
-<div class="mlist" id="{i#id}">
+<!--{widget}--><div class="mlist" id="{i#id}">
 	<div id="{i#table}"></div>
 </div>
-
-<!--{table}-->
-<table id="{i#id}">
+<!--{table}--><table id="{i#id}">
 	<thead><tr>
 		<th class="tname">
 			<ul>
-				<li class="tl"><a id="{i#sortname}" href="#">Название</a></li>
+				<li class="tl"><a id="{i#sortname}" href="#">{#mod.support.msglist.table.1}</a></li>
 				<li><div class="sort sortstr-asc"></div></li>
 				<li><div class="sort sortstr-desc"></div></li>
 			</ul>
 		</th>
 		<th class="tcmtcount">
 			<ul>
-				<li class="tl"><a id="{i#sortcmtcount}" href="#" title="Количество комментарий">Комментарий</a></li>
+				<li class="tl"><a id="{i#sortcmtcount}" href="#" title="{#mod.support.msglist.table.3}">{#mod.support.msglist.table.2}</a></li>
 				<li><div class="sort sortstr-asc"></div></li>
 				<li><div class="sort sortstr-desc"></div></li>
 			</ul>
 		</th>
 		<th class="tlastcmt">
 			<ul>
-				<li class="tl"><a id="{i#sortcmtdate}" href="#">Последний комментарий</a></li>
+				<li class="tl"><a id="{i#sortcmtdate}" href="#">{#mod.support.msglist.table.4}</a></li>
 				<li><div class="sort sortstr-asc"></div></li>
 				<li><div class="sort sortstr-desc"></div></li>
 			</ul>
@@ -30,9 +27,7 @@
 	</tr></thead>
 	<tbody>{v#rows}</tbody>
 </table>
-
-<!--{row}-->
-<tr id="{i#id}-{v#id}" class="row {v#removed} {v#closed}">
+<!--{row}--><tr id="{i#id}-{v#id}" class="row {v#removed} {v#closed}">
 	<td class="tname">
 		<div class="ch-ico"><div class="ch-btn"></div></div>
 		<div class="ch-tl">
@@ -48,11 +43,7 @@
 		<div class="cmtdate">{v#cmtdate}</div>
 	</td>
 </tr>
-
-<!--{empttitle}-->
-<i>-- Без заголовка --</i>
-
-<!--{user}-->
-<div class="user vi">
+<!--{empttitle}--><i>-- {#mod.support.msglist.empttitle.1} --</i>
+<!--{user}--><div class="user vi">
 	<a href="#" class="show-user-profile user-{v#uid}">{v#unm}</a>
 </div>

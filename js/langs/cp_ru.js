@@ -1,6 +1,6 @@
-Brick.util.Language.add('ru',{'mod':{'support': {
+Brick.util.Language.add('ru',{'mod': {'{C#MODNAME}':{
 	'title': 'Поддержка',
-	'roles':{
+	'roles': {
 		'10': 'Чтение',
 		'30': 'Запись',
 		'40': 'Модератор',

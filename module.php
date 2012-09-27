@@ -3,14 +3,14 @@
  * @version $Id$
  * @package Abricos
  * @subpackage Support
- * @copyright Copyright (C) 2008 Abricos. All rights reserved.
- * @author Alexander Kuzmin (roosit@abricos.org)
+ * @copyright Copyright (C) 2012 Abricos. All rights reserved.
+ * @author Alexander Kuzmin <roosit@abricos.org>
  */
 
 class SupportModule extends Ab_Module {
 	
 	public function __construct(){
-		$this->version = "0.1.1";
+		$this->version = "0.1.2";
 		$this->name = "support";
 		$this->permission = new SupportPermission($this);
 	}
