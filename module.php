@@ -12,6 +12,7 @@ class SupportModule extends Ab_Module {
 	public function __construct(){
 		$this->version = "0.1.2";
 		$this->name = "support";
+		$this->takelink = "support";
 		$this->permission = new SupportPermission($this);
 	}
 	
