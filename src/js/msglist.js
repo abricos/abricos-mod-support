@@ -1,5 +1,4 @@
 /*
-@version $Id$
 @package Abricos
 @copyright Copyright (C) 2008 Abricos All rights reserved.
 @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
@@ -28,15 +27,7 @@ Component.entryPoint = function(){
 	
 	var LNG = Brick.util.Language.getc('mod.support');
 
-	var initCSS = false, buildTemplate = function(w, ts){
-		if (!initCSS){
-			Brick.util.CSS.update(Brick.util.CSS['support']['msglist']);
-			delete Brick.util.CSS['support']['msglist'];
-			initCSS = true;
-		}
-		w._TM = TMG.build(ts); w._T = w._TM.data; w._TId = w._TM.idManager;
-	};
-	
+    var buildTemplate = this.buildTemplate;
 
 	var TST = NS.MessageStatus;
 	

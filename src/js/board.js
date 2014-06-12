@@ -1,5 +1,4 @@
 /*
-@version $Id$
 @package Abricos
 @copyright Copyright (C) 2008 Abricos All rights reserved.
 @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
@@ -23,9 +22,8 @@ Component.entryPoint = function(){
 		API = NS.API,
 		R = NS.roles;
 
-	Brick.util.CSS.update(Brick.util.CSS['support']['board']);
-	
-	var buildTemplate = function(w, ts){w._TM = TMG.build(ts); w._T = w._TM.data; w._TId = w._TM.idManager;};
+    var buildTemplate = this.buildTemplate;
+    // buildTemplate({},'');
 	
 	var BoardPanel = function(){
 		BoardPanel.superclass.constructor.call(this, {

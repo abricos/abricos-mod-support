@@ -1,5 +1,4 @@
 /*
-@version $Id$
 @package Abricos
 @copyright Copyright (C) 2008 Abricos All rights reserved.
 @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
@@ -9,8 +8,8 @@ var Component = new Brick.Component();
 Component.requires = { 
 	mod:[
         {name: 'uprofile', files: ['users.js']},
-        {name: 'social', files: ['lib.js']},
-        {name: 'support', files: ['roles.js']}
+        {name: 'sys', files: ['item.js']},
+        {name: 'support', files: ['functions.js', 'roles.js']}
 	]		
 };
 Component.entryPoint = function(){
@@ -20,16 +19,11 @@ Component.entryPoint = function(){
 		L = YAHOO.lang,
 		TMG = this.template,
 		NS = this.namespace,
-		API = NS.API,
-		R = NS.roles; 
+		R = NS.roles;
 
-	var SC = Brick.mod.social;
+    var buildTemplate = this.buildTemplate;
+    buildTemplate({},'');
 
-	Brick.util.CSS.update(Brick.util.CSS['support']['lib']);
-	delete Brick.util.CSS['support']['lib'];
-
-	var buildTemplate = function(w, ts){w._TM = TMG.build(ts); w._T = w._TM.data; w._TId = w._TM.idManager;};
-	
 	// дополнить эксперементальными функциями менеджер шаблонов
 	var TMP = Brick.Template.Manager.prototype;
 	TMP.elHide = function(els){ this.elShowHide(els, false); };
@@ -87,17 +81,17 @@ Component.entryPoint = function(){
 			this.id = d['id']*1;								// идентификатор
 			this.title = d['tl'];								// заголовок
 			this.userid = d['uid'];								// идентификатор автора
-			this.date = SC.dateToClient(d['dl']); 				// дата создания 
+			this.date = NS.dateToClient(d['dl']); 				// дата создания
 
-			this.updDate = SC.dateToClient(d['udl']); 			// дата создания 
+			this.updDate = NS.dateToClient(d['udl']); 			// дата создания
 			
 			this.cmt = (L.isNull(d['cmt']) ? 0 : d['cmt'])*1;	// кол-во сообщений
-			this.cmtDate = SC.dateToClient(d['cmtdl']);			// дата последнего сообщения
+			this.cmtDate = NS.dateToClient(d['cmtdl']);			// дата последнего сообщения
 			this.cmtUserId = L.isNull(d['cmtuid']) ? 0 : d['cmtuid'];	// дата последнего сообщения
 			
 			this.status = d['st']*1;
 			this.stUserId = d['stuid'];
-			this.stDate = SC.dateToClient(d['stdl']);
+			this.stDate = NS.dateToClient(d['stdl']);
 		},
 		setData: function(d){
 			this.isLoad = true;
@@ -120,7 +114,7 @@ Component.entryPoint = function(){
 	var MessageList = function(data){
 		MessageList.superclass.constructor.call(this, data);
 	};
-	YAHOO.extend(MessageList, SC.List, {});
+	YAHOO.extend(MessageList, NS.List, {});
 	NS.MessageList = MessageList;
 	
 	var Manager = function(inda){
@@ -135,13 +129,12 @@ Component.entryPoint = function(){
 			this.list = new MessageList();
 			this.listUpdate(inda['board']);
 			
-			this.users = new SC.UserList(inda['users']);
+			this.users = new NS.UserList(inda['users']);
 
 			this.lastUpdateTime = new Date();
 			
 			E.on(document.body, 'mousemove', this.onMouseMove, this, true);
 		},
-		
 		onMouseMove: function(evt){
 			var ctime = (new Date()).getTime(), ltime = this.lastUpdateTime.getTime();
 			
