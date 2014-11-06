@@ -1,61 +1,60 @@
-<?php 
+<?php
+
 /**
- * @version $Id$
  * @package Abricos
  * @subpackage Support
  * @copyright Copyright (C) 2012 Abricos. All rights reserved.
  * @author Alexander Kuzmin <roosit@abricos.org>
  */
-
 class SupportModule extends Ab_Module {
-	
-	public function __construct(){
-		$this->version = "0.1.3-dev";
-		$this->name = "support";
-		$this->takelink = "support";
-		$this->permission = new SupportPermission($this);
-	}
-	
-	/**
-	 * Получить менеджер
-	 *
-	 * @return SupportManager
-	 */
-	public function GetManager(){
-		if (is_null($this->_manager)){
-			require_once 'includes/manager.php';
-			$this->_manager = new SupportManager($this);
-		}
-		return $this->_manager;
-	}
-	
-	public function GetContentName(){
-		$cname = '';
-		$adress = $this->registry->adress;
-		
-		if ($adress->level >= 2 && $adress->dir[1] == 'upload'){
-			$cname = $adress->dir[1];
-		}
-		return $cname;
-	}	
-	
+
+    public function __construct() {
+        $this->version = "0.1.3";
+        $this->name = "support";
+        $this->takelink = "support";
+        $this->permission = new SupportPermission($this);
+    }
+
+    /**
+     * Получить менеджер
+     *
+     * @return SupportManager
+     */
+    public function GetManager() {
+        if (is_null($this->_manager)) {
+            require_once 'includes/manager.php';
+            $this->_manager = new SupportManager($this);
+        }
+        return $this->_manager;
+    }
+
+    public function GetContentName() {
+        $cname = '';
+        $adress = $this->registry->adress;
+
+        if ($adress->level >= 2 && $adress->dir[1] == 'upload') {
+            $cname = $adress->dir[1];
+        }
+        return $cname;
+    }
+
 }
 
 
 class SupportAction {
-	const VIEW	= 10;
-	const WRITE	= 30;
-	const MODER	= 40;
-	const ADMIN	= 50;
+    const VIEW = 10;
+    const WRITE = 30;
+    const MODER = 40;
+    const ADMIN = 50;
 }
 
 class SupportGroup {
-	
-	/**
-	 * Группа "Модераторы"
-	 * @var string
-	 */
-	const MODERATOR = 'support_moderator';
+
+    /**
+     * Группа "Модераторы"
+     * @var string
+     */
+    const MODERATOR = 'support_moderator';
 }
 
 
@@ -63,53 +62,53 @@ class SupportGroup {
  * Статус задачи
  */
 class SupportStatus {
-	
-	/**
-	 * Открыто
-	 * @var integer
-	 */
-	const OPENED = 0;
 
-	/**
-	 * Закрыто
-	 * @var integer
-	 */
-	const CLOSED = 1;
-	
-	/**
-	 * Удалено
-	 * @var integer
-	 */
-	const REMOVED = 2;
+    /**
+     * Открыто
+     * @var integer
+     */
+    const OPENED = 0;
+
+    /**
+     * Закрыто
+     * @var integer
+     */
+    const CLOSED = 1;
+
+    /**
+     * Удалено
+     * @var integer
+     */
+    const REMOVED = 2;
 }
 
 
 class SupportPermission extends Ab_UserPermission {
-	
-	public function SupportPermission(SupportModule $module){
-		
-		$defRoles = array(
-			new Ab_UserRole(SupportAction::VIEW, Ab_UserGroup::REGISTERED),
-			new Ab_UserRole(SupportAction::VIEW, Ab_UserGroup::ADMIN),
-			
-			new Ab_UserRole(SupportAction::WRITE, Ab_UserGroup::REGISTERED),
-			new Ab_UserRole(SupportAction::WRITE, Ab_UserGroup::ADMIN),
-			
-			new Ab_UserRole(SupportAction::MODER, SupportGroup::MODERATOR),
-			
-			new Ab_UserRole(SupportAction::ADMIN, Ab_UserGroup::ADMIN)
-		);
-		parent::__construct($module, $defRoles);
-	}
-	
-	public function GetRoles(){
-		return array(
-			SupportAction::VIEW => $this->CheckAction(SupportAction::VIEW),
-			SupportAction::WRITE => $this->CheckAction(SupportAction::WRITE),
-			SupportAction::MODER => $this->CheckAction(SupportAction::MODER),
-			SupportAction::ADMIN => $this->CheckAction(SupportAction::ADMIN)
-		);
-	}
+
+    public function SupportPermission(SupportModule $module) {
+
+        $defRoles = array(
+            new Ab_UserRole(SupportAction::VIEW, Ab_UserGroup::REGISTERED),
+            new Ab_UserRole(SupportAction::VIEW, Ab_UserGroup::ADMIN),
+
+            new Ab_UserRole(SupportAction::WRITE, Ab_UserGroup::REGISTERED),
+            new Ab_UserRole(SupportAction::WRITE, Ab_UserGroup::ADMIN),
+
+            new Ab_UserRole(SupportAction::MODER, SupportGroup::MODERATOR),
+
+            new Ab_UserRole(SupportAction::ADMIN, Ab_UserGroup::ADMIN)
+        );
+        parent::__construct($module, $defRoles);
+    }
+
+    public function GetRoles() {
+        return array(
+            SupportAction::VIEW => $this->CheckAction(SupportAction::VIEW),
+            SupportAction::WRITE => $this->CheckAction(SupportAction::WRITE),
+            SupportAction::MODER => $this->CheckAction(SupportAction::MODER),
+            SupportAction::ADMIN => $this->CheckAction(SupportAction::ADMIN)
+        );
+    }
 }
 
 Abricos::ModuleRegister(new SupportModule());

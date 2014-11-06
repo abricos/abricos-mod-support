@@ -209,7 +209,7 @@ class SupportManager extends Ab_ModuleManager {
 					"plnk" => $plnk,
 					"unm" => $this->UserNameBuild($this->user->info),
 					"prj" => $message['bd'],
-					"sitename" => Brick::$builder->phrase->Get('sys', 'site_name')
+					"sitename" => SystemModule::$instance->GetPhrases()->Get('site_name')
 				));
 				Abricos::Notify()->SendMail($email, $subject, $body);
 			}
@@ -325,7 +325,7 @@ class SupportManager extends Ab_ModuleManager {
 						"unm" => $this->UserNameBuild($this->user->info),
 						"cmt1" => $parent['bd']." ",
 						"cmt2" => $data->bd." ",
-						"sitename" => Brick::$builder->phrase->Get('sys', 'site_name')
+						"sitename" => SystemModule::$instance->GetPhrases()->Get('site_name')
 					));
 					Abricos::Notify()->SendMail($email, $subject, $body);
 				}
@@ -346,7 +346,7 @@ class SupportManager extends Ab_ModuleManager {
 					"plnk" => $plnk,
 					"unm" => $this->UserNameBuild($this->user->info),
 					"cmt" => $data->bd." ",
-					"sitename" => Brick::$builder->phrase->Get('sys', 'site_name')
+					"sitename" => SystemModule::$instance->GetPhrases()->Get('site_name')
 				));
 				Abricos::Notify()->SendMail($email, $subject, $body);
 			}
@@ -369,7 +369,7 @@ class SupportManager extends Ab_ModuleManager {
 				"plnk" => $plnk,
 				"unm" => $this->UserNameBuild($this->user->info),
 				"cmt" => $data->bd." ",
-				"sitename" => Brick::$builder->phrase->Get('sys', 'site_name')
+				"sitename" => SystemModule::$instance->GetPhrases()->Get('site_name')
 			));
 			Abricos::Notify()->SendMail($email, $subject, $body);
 		}

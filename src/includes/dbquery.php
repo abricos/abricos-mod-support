@@ -169,7 +169,7 @@ class SupportQuery {
 	}
 	
 	
-	public static function CommentList(Ab_Database $db, $userid, $isModer){
+	public static function CommentList(Ab_Database $db, $userid){
 		$sql = "
 			SELECT 
 				a.commentid as id,
