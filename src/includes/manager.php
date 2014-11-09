@@ -407,6 +407,19 @@ class SupportManager extends Ab_ModuleManager {
 		return $this->Message($messageid);
 	}
 
+    public function Bos_MenuData() {
+        $i18n = $this->module->GetI18n();
+        return array(
+            array(
+                "name" => "support",
+                "title" => $i18n['title'],
+                "role" => SupportAction::VIEW,
+                "icon" => "/modules/support/images/app_icon.gif",
+                "url" => "support/board/showBoardPanel"
+            )
+        );
+    }
+
 }
 
 ?>

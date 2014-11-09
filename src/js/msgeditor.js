@@ -9,7 +9,7 @@ var Component = new Brick.Component();
 Component.requires = {
 	mod:[
 		{name: 'sys', files: ['container.js', 'editor.js']},
-        {name: 'support', files: ['lib.js', 'roles.js']},
+        {name: 'support', files: ['lib.js']},
         {name: 'filemanager', files: ['lib.js']}
 	]
 };

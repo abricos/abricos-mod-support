@@ -38,6 +38,15 @@ class SupportModule extends Ab_Module {
         return $cname;
     }
 
+    /**
+     * This module added menu item in BOS Panel
+     *
+     * @return bool
+     */
+    public function Bos_IsMenu() {
+        return true;
+    }
+
 }
 
 
