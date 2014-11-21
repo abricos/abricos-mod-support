@@ -1,6 +1,5 @@
 <?php
 /**
- * @version $Id$
  * @package Abricos
  * @subpackage Support
  * @copyright Copyright (C) 2011 Abricos. All rights reserved.
@@ -48,7 +47,6 @@ class SupportManager extends Ab_ModuleManager {
 	}
 	
 	private function _AJAX($d){
-		
 		switch($d->do){
 			case 'messagesave':		return $this->MessageSave($d->message);
 			case 'message': 		return $this->Message($d->messageid);
@@ -414,7 +412,7 @@ class SupportManager extends Ab_ModuleManager {
                 "name" => "support",
                 "title" => $i18n['title'],
                 "role" => SupportAction::VIEW,
-                "icon" => "/modules/support/images/app_icon.gif",
+                "icon" => "/modules/support/images/support-24.png",
                 "url" => "support/board/showBoardPanel"
             )
         );
