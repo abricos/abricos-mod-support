@@ -1,31 +1,29 @@
 <?php
 /**
- * Схема таблиц данного модуля.
- * 
- * @version $Id$
  * @package Abricos
  * @subpackage Support
- * @copyright Copyright (C) 2011 Abricos. All rights reserved.
- * @author  Alexander Kuzmin (roosit@abricos.org)
+ * @copyright 2012-2016 Alexander Kuzmin
+ * @license http://opensource.org/licenses/mit-license.php MIT License
+ * @author Alexander Kuzmin <roosit@abricos.org>
  */
 
 $charset = "CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'";
-$updateManager = Ab_UpdateManager::$current; 
+$updateManager = Ab_UpdateManager::$current;
 $db = Abricos::$db;
 $pfx = $db->prefix;
 
-$uprofileManager = Abricos::GetModule('uprofile')->GetManager(); 
+$uprofileManager = Abricos::GetModule('uprofile')->GetManager();
 
 if ($updateManager->isInstall()){
-	
-	$uprofileManager->FieldAppend('lastname', 'Фамилия', UserFieldType::STRING, 100);
-	$uprofileManager->FieldAppend('firstname', 'Имя', UserFieldType::STRING, 100);
-	$uprofileManager->FieldCacheClear();
-	
-	Abricos::GetModule('support')->permission->Install();
-	
-	// проекты
-	$db->query_write("
+
+    $uprofileManager->FieldAppend('lastname', 'Фамилия', UserFieldType::STRING, 100);
+    $uprofileManager->FieldAppend('firstname', 'Имя', UserFieldType::STRING, 100);
+    $uprofileManager->FieldCacheClear();
+
+    Abricos::GetModule('support')->permission->Install();
+
+    // проекты
+    $db->query_write("
 		CREATE TABLE IF NOT EXISTS ".$pfx."spt_message (
 		  `messageid` int(10) unsigned NOT NULL auto_increment COMMENT 'Идентификатор сообщения',
   		  `pubkey` varchar(32) NOT NULL DEFAULT '' COMMENT 'Уникальный публичный ключ',
@@ -47,10 +45,10 @@ if ($updateManager->isInstall()){
 		  
 		  PRIMARY KEY  (`messageid`)
 		)".$charset
-	);
-	
-	// Прикрепленные файлы к сообщению
-	$db->query_write("
+    );
+
+    // Прикрепленные файлы к сообщению
+    $db->query_write("
 		CREATE TABLE IF NOT EXISTS ".$pfx."spt_file (
 		  `fileid` int(10) unsigned NOT NULL auto_increment COMMENT 'Идентификатор',
 		  `messageid` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Идентификатор сообщения',
@@ -59,7 +57,7 @@ if ($updateManager->isInstall()){
 		  PRIMARY KEY  (`fileid`), 
 		  UNIQUE KEY `file` (`messageid`,`filehash`)
 		)".$charset
-	);
+    );
 
 }
 

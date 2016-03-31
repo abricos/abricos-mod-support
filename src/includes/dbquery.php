@@ -1,18 +1,21 @@
 <?php
 /**
- * @version $Id$
  * @package Abricos
  * @subpackage Support
- * @copyright Copyright (C) 2008 Abricos. All rights reserved.
- * @author Alexander Kuzmin (roosit@abricos.org)
+ * @copyright 2012-2016 Alexander Kuzmin
+ * @license http://opensource.org/licenses/mit-license.php MIT License
+ * @author Alexander Kuzmin <roosit@abricos.org>
  */
 
+/**
+ * Class SupportQuery
+ */
 class SupportQuery {
-	
-	public static function MessageAppend(Ab_Database $db, $msg, $pubkey){
-		$contentid = Ab_CoreQuery::ContentAppend($db, $msg->bd, 'support');
-		
-		$sql = "
+
+    public static function MessageAppend(Ab_Database $db, $msg, $pubkey){
+        $contentid = Ab_CoreQuery::ContentAppend($db, $msg->bd, 'support');
+
+        $sql = "
 			INSERT INTO ".$db->prefix."spt_message (
 				userid, title, pubkey, contentid, isprivate, status, dateline, upddate) VALUES (
 				".bkint($msg->uid).",
@@ -25,14 +28,14 @@ class SupportQuery {
 				".TIMENOW."
 			)
 		";
-		$db->query_write($sql);
-		return $db->insert_id();
-	}
-	
-	public static function MessageUpdate(Ab_Database $db, $msg, $userid){
-		$info = SupportQuery::Message($db, $msg->id, $userid, true);
-		Ab_CoreQuery::ContentUpdate($db, $info['ctid'], $msg->bd);
-		$sql = "
+        $db->query_write($sql);
+        return $db->insert_id();
+    }
+
+    public static function MessageUpdate(Ab_Database $db, $msg, $userid){
+        $info = SupportQuery::Message($db, $msg->id, $userid, true);
+        Ab_CoreQuery::ContentUpdate($db, $info['ctid'], $msg->bd);
+        $sql = "
 			UPDATE ".$db->prefix."spt_message
 			SET
 				title='".bkstr($msg->tl)."',
@@ -40,11 +43,11 @@ class SupportQuery {
 			WHERE messageid=".bkint($msg->id)."
 			LIMIT 1
 		";
-		$db->query_write($sql);
-	}
-	
-	public static function MessageFields (Ab_Database $db){
-		return "
+        $db->query_write($sql);
+    }
+
+    public static function MessageFields(Ab_Database $db){
+        return "
 			m.messageid as id,
 			m.userid as uid,
 			m.title as tl,
@@ -58,10 +61,10 @@ class SupportQuery {
 			m.cmtdate as cmtdl,
 			m.cmtuserid as cmtuid 
 		";
-	}
-	
-	public static function Message(Ab_Database $db, $messageid, $retarray = false){
-		$sql = "
+    }
+
+    public static function Message(Ab_Database $db, $messageid, $retarray = false){
+        $sql = "
 			SELECT
 				".SupportQuery::MessageFields($db).",
 				c.body as bd,
@@ -71,11 +74,11 @@ class SupportQuery {
 			WHERE m.messageid=".bkint($messageid)." 
 			LIMIT 1
 		";
-		return $retarray ? $db->query_first($sql) : $db->query_read($sql);
-	}
+        return $retarray ? $db->query_first($sql) : $db->query_read($sql);
+    }
 
-	public static function MessageByContentId(Ab_Database $db, $contentid, $retarray = false){
-		$sql = "
+    public static function MessageByContentId(Ab_Database $db, $contentid, $retarray = false){
+        $sql = "
 			SELECT
 				".SupportQuery::MessageFields($db).",
 				c.body as bd,
@@ -85,33 +88,33 @@ class SupportQuery {
 			WHERE m.contentid=".bkint($contentid)." 
 			LIMIT 1
 		";
-		return $retarray ? $db->query_first($sql) : $db->query_read($sql);
-	}
-	
-	public static function MessageList(Ab_Database $db, $userid, $isModer, $lastupdate = 0){
-		$lastupdate = bkint($lastupdate);
-		$where = "WHERE (m.upddate > ".$lastupdate." OR m.cmtdate > ".$lastupdate.") ";
-		if (!$isModer){
-			$where .= " AND (m.isprivate=0 OR (m.isprivate=1 AND m.userid=".bkint($userid).")) AND m.status != ".SupportStatus::REMOVED;
-		}
-		
-		$sql = "
+        return $retarray ? $db->query_first($sql) : $db->query_read($sql);
+    }
+
+    public static function MessageList(Ab_Database $db, $userid, $isModer, $lastupdate = 0){
+        $lastupdate = bkint($lastupdate);
+        $where = "WHERE (m.upddate > ".$lastupdate." OR m.cmtdate > ".$lastupdate.") ";
+        if (!$isModer){
+            $where .= " AND (m.isprivate=0 OR (m.isprivate=1 AND m.userid=".bkint($userid).")) AND m.status != ".SupportStatus::REMOVED;
+        }
+
+        $sql = "
 			SELECT ".SupportQuery::MessageFields($db)."
 			FROM ".$db->prefix."spt_message m
 			".$where."
 			ORDER BY m.upddate DESC
 		";
-		return $db->query_read($sql);
-	}
-	
-	
-	public static function Users(Ab_Database $db, $uids){
-		$ids = array();
-		foreach ($uids as $uid => $v){
-			array_push($ids, "u.userid=".bkint($uid));
-		}
-		
-		$sql = "
+        return $db->query_read($sql);
+    }
+
+
+    public static function Users(Ab_Database $db, $uids){
+        $ids = array();
+        foreach ($uids as $uid => $v){
+            array_push($ids, "u.userid=".bkint($uid));
+        }
+
+        $sql = "
 			SELECT
 				DISTINCT
 				u.userid as id,
@@ -122,12 +125,12 @@ class SupportQuery {
 			FROM ".$db->prefix."user u
 			WHERE ".implode(" OR ", $ids)."
 		";
-		return $db->query_read($sql);
-	}
-	
-	public static function MessageCommentInfoUpdate(Ab_Database $db, $messageid){
-		
-		$sql = "
+        return $db->query_read($sql);
+    }
+
+    public static function MessageCommentInfoUpdate(Ab_Database $db, $messageid){
+
+        $sql = "
 			SELECT
 				(
 					SELECT count(*) as cmt
@@ -154,9 +157,9 @@ class SupportQuery {
 			WHERE m.messageid=".bkint($messageid)." 
 			LIMIT 1
 		";
-		$row = $db->query_first($sql);
-				
-		$sql = "
+        $row = $db->query_first($sql);
+
+        $sql = "
 			UPDATE ".$db->prefix."spt_message
 			SET
 				cmtcount=".bkint($row['cmt']).",
@@ -165,12 +168,12 @@ class SupportQuery {
 			WHERE messageid=".bkint($messageid)."
 			LIMIT 1
 		";
-		$db->query_write($sql);
-	}
-	
-	
-	public static function CommentList(Ab_Database $db, $userid){
-		$sql = "
+        $db->query_write($sql);
+    }
+
+
+    public static function CommentList(Ab_Database $db, $userid){
+        $sql = "
 			SELECT 
 				a.commentid as id,
 				a.parentcommentid as pid,
@@ -194,11 +197,11 @@ class SupportQuery {
 			ORDER BY a.commentid DESC  
 			LIMIT 15
 		";
-		return $db->query_read($sql);
-	}
-	
-	public static function ModeratorList(Ab_Database $db){
-		$sql = "
+        return $db->query_read($sql);
+    }
+
+    public static function ModeratorList(Ab_Database $db){
+        $sql = "
 			SELECT 
 				u.userid as id,
 				u.username as unm,
@@ -210,11 +213,11 @@ class SupportQuery {
 			LEFT JOIN ".$db->prefix."user u ON ug.userid = u.userid
 			WHERE g.groupkey='".SupportGroup::MODERATOR."'
 		";
-		return $db->query_read($sql);
-	}
+        return $db->query_read($sql);
+    }
 
-	public static function MessageFiles(Ab_Database $db, $messageid){
-		$sql = "
+    public static function MessageFiles(Ab_Database $db, $messageid){
+        $sql = "
 			SELECT 
 				bf.filehash as id,
 				f.filename as nm,
@@ -223,11 +226,11 @@ class SupportQuery {
 			INNER JOIN ".$db->prefix."fm_file f ON bf.filehash=f.filehash
 			WHERE bf.messageid=".bkint($messageid)."
 		";
-		return $db->query_read($sql);
-	}
-	
-	public static function MessageFileAppend(Ab_Database $db, $messageid, $filehash, $userid){
-		$sql = "
+        return $db->query_read($sql);
+    }
+
+    public static function MessageFileAppend(Ab_Database $db, $messageid, $filehash, $userid){
+        $sql = "
 			INSERT INTO ".$db->prefix."spt_file (messageid, filehash, userid) VALUES
 			(
 				".bkint($messageid).",
@@ -235,19 +238,19 @@ class SupportQuery {
 				".bkint($userid)."
 			)
 		";
-		$db->query_write($sql);
-	}
-	
-	public static function MessageFileRemove(Ab_Database $db, $messageid, $filehash){
-		$sql = "
+        $db->query_write($sql);
+    }
+
+    public static function MessageFileRemove(Ab_Database $db, $messageid, $filehash){
+        $sql = "
 			DELETE FROM ".$db->prefix."spt_file
 			WHERE messageid=".bkint($messageid)." AND filehash='".bkstr($filehash)."' 
 		";
-		$db->query_write($sql);
-	}
-	
-	public static function MessageSetStatus(Ab_Database $db, $messageid, $status, $userid){
-		$sql = "
+        $db->query_write($sql);
+    }
+
+    public static function MessageSetStatus(Ab_Database $db, $messageid, $status, $userid){
+        $sql = "
 			UPDATE ".$db->prefix."spt_message
 			SET
 				status=".bkint($status).",
@@ -255,47 +258,12 @@ class SupportQuery {
 				statdate=".TIMENOW."
 			WHERE messageid=".bkint($messageid)."
 		";
-		$db->query_write($sql);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+        $db->query_write($sql);
+    }
 
-	
 
-	
-	public static function MyUserData(Ab_Database $db, $userid, $retarray = false){
-		$sql = "
+    public static function MyUserData(Ab_Database $db, $userid, $retarray = false){
+        $sql = "
 			SELECT
 				DISTINCT
 				u.userid as id,
@@ -307,27 +275,27 @@ class SupportQuery {
 			WHERE u.userid=".bkint($userid)."
 			LIMIT 1
 		";
-		return $retarray ? $db->query_first($sql) : $db->query_read($sql);
-	}
-	
+        return $retarray ? $db->query_first($sql) : $db->query_read($sql);
+    }
 
-	public static function MessageUnsetStatus(Ab_Database $db, $messageid){
-		$sql = "
+
+    public static function MessageUnsetStatus(Ab_Database $db, $messageid){
+        $sql = "
 			UPDATE ".$db->prefix."spt_message
 			SET status=".SupportStatus::DRAW_OPEN.", statuserid=0, statdate=0
 			WHERE messageid=".bkint($messageid)."
 		";
-		$db->query_write($sql);
-	}
-	
-	/**
-	 * Список участников проекта
-	 * 
-	 * @param Ab_Database $db
-	 * @param integer $messageid
-	 */
-	public static function MessageUserList(Ab_Database $db, $messageid){
-		$sql = "
+        $db->query_write($sql);
+    }
+
+    /**
+     * Список участников проекта
+     *
+     * @param Ab_Database $db
+     * @param integer $messageid
+     */
+    public static function MessageUserList(Ab_Database $db, $messageid){
+        $sql = "
 			SELECT 
 				p.userid as id,
 				u.username as unm,
@@ -337,17 +305,17 @@ class SupportQuery {
 			INNER JOIN ".$db->prefix."user u ON p.userid=u.userid
 			WHERE p.messageid=".bkint($messageid)."
 		";
-		return $db->query_read($sql);
-	}
-	
-	/**
-	 * Список участников проекта с расшириными полями для служебных целей (отправка уведомлений и т.п.)
-	 * 
-	 * @param Ab_Database $db
-	 * @param integer $messageid
-	 */
-	public static function MessageUserListForNotify(Ab_Database $db, $messageid){
-		$sql = "
+        return $db->query_read($sql);
+    }
+
+    /**
+     * Список участников проекта с расшириными полями для служебных целей (отправка уведомлений и т.п.)
+     *
+     * @param Ab_Database $db
+     * @param integer $messageid
+     */
+    public static function MessageUserListForNotify(Ab_Database $db, $messageid){
+        $sql = "
 			SELECT 
 				p.userid as id,
 				u.username as unm,
@@ -358,11 +326,9 @@ class SupportQuery {
 			INNER JOIN ".$db->prefix."user u ON p.userid=u.userid
 			WHERE p.messageid=".bkint($messageid)."
 		";
-		return $db->query_read($sql);
-	}
-	
-	
-	
+        return $db->query_read($sql);
+    }
+
 
 }
 

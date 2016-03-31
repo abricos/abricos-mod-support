@@ -1,9 +1,3 @@
-/*
- @package Abricos
- @copyright Copyright (C) 2008 Abricos All rights reserved.
- @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- */
-
 var Component = new Brick.Component();
 Component.requires = {
     mod: [
@@ -251,7 +245,7 @@ Component.entryPoint = function(NS){
         },
         _messageAJAX: function(messageid, cmd, callback){
             callback = callback || function(){
-            };
+                };
             var __self = this;
             this.ajax({'do': cmd, 'messageid': messageid}, function(r){
                 __self._setLoadedMessageData(r);
@@ -271,7 +265,7 @@ Component.entryPoint = function(NS){
         },
         messageLoad: function(messageid, callback){
             callback = callback || function(){
-            };
+                };
             var message = this.list.find(messageid);
 
             if (L.isNull(message) || message.isLoad){
@@ -282,7 +276,7 @@ Component.entryPoint = function(NS){
         },
         messageSave: function(message, d, callback){
             callback = callback || function(){
-            };
+                };
             var __self = this;
 
             d = L.merge({
