@@ -12,14 +12,7 @@ $updateManager = Ab_UpdateManager::$current;
 $db = Abricos::$db;
 $pfx = $db->prefix;
 
-$uprofileManager = Abricos::GetModule('uprofile')->GetManager();
-
 if ($updateManager->isInstall()){
-
-    $uprofileManager->FieldAppend('lastname', 'Фамилия', UserFieldType::STRING, 100);
-    $uprofileManager->FieldAppend('firstname', 'Имя', UserFieldType::STRING, 100);
-    $uprofileManager->FieldCacheClear();
-
     Abricos::GetModule('support')->permission->Install();
 
     // проекты
