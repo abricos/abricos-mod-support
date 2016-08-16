@@ -104,7 +104,7 @@ class SupportStatus {
 
 class SupportPermission extends Ab_UserPermission {
 
-    public function SupportPermission(SupportModule $module){
+    public function __construct(SupportModule $module){
 
         $defRoles = array(
             new Ab_UserRole(SupportAction::VIEW, Ab_UserGroup::REGISTERED),
@@ -131,5 +131,3 @@ class SupportPermission extends Ab_UserPermission {
 }
 
 Abricos::ModuleRegister(new SupportModule());
-
-?>

@@ -474,5 +474,3 @@ class SupportManager extends Ab_ModuleManager {
     }
 
 }
-
-?>

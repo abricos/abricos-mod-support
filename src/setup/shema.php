@@ -53,5 +53,3 @@ if ($updateManager->isInstall()){
     );
 
 }
-
-?>
